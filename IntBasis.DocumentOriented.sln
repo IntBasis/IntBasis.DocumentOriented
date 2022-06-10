@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.RavenDB", "IntBasis.DocumentOriented.RavenDB\IntBasis.DocumentOriented.RavenDB.csproj", "{70564CAA-7658-48E4-A03F-DCB983355606}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.RavenDB.Tests", "IntBasis.DocumentOriented.RavenDB.Tests\IntBasis.DocumentOriented.RavenDB.Tests.csproj", "{23468FF7-AFFF-495F-8F82-49101E129B48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{70564CAA-7658-48E4-A03F-DCB983355606}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70564CAA-7658-48E4-A03F-DCB983355606}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70564CAA-7658-48E4-A03F-DCB983355606}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23468FF7-AFFF-495F-8F82-49101E129B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23468FF7-AFFF-495F-8F82-49101E129B48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23468FF7-AFFF-495F-8F82-49101E129B48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23468FF7-AFFF-495F-8F82-49101E129B48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
