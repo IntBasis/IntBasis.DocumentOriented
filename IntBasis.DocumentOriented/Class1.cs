@@ -1,9 +1,6 @@
-﻿using System;
+﻿namespace IntBasis.DocumentOriented;
 
-namespace IntBasis.DocumentOriented
+public class Class1
 {
-    public class Class1
-    {
 
-    }
 }
