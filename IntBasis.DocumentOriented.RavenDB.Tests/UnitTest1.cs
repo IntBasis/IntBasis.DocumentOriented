@@ -5,7 +5,7 @@ namespace IntBasis.DocumentOriented.RavenDB.Tests
         [Fact]
         public void Test1()
         {
-            new Class1();
+            RavenDbExample.GettingStarted();
         }
     }
 }
