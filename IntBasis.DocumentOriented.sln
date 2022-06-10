@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented", "IntBasis.DocumentOriented\IntBasis.DocumentOriented.csproj", "{EBF2E9BE-C95E-4BA2-B324-57B29420A3DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.Tests", "IntBasis.DocumentOriented.Tests\IntBasis.DocumentOriented.Tests.csproj", "{58C6258D-AD44-4CAB-9E77-364B0B3AB12D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{EBF2E9BE-C95E-4BA2-B324-57B29420A3DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBF2E9BE-C95E-4BA2-B324-57B29420A3DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBF2E9BE-C95E-4BA2-B324-57B29420A3DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58C6258D-AD44-4CAB-9E77-364B0B3AB12D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58C6258D-AD44-4CAB-9E77-364B0B3AB12D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58C6258D-AD44-4CAB-9E77-364B0B3AB12D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58C6258D-AD44-4CAB-9E77-364B0B3AB12D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
