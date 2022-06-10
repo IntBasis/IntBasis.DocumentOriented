@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented", "IntBasis.DocumentOriented\IntBasis.DocumentOriented.csproj", "{EBF2E9BE-C95E-4BA2-B324-57B29420A3DC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBF2E9BE-C95E-4BA2-B324-57B29420A3DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBF2E9BE-C95E-4BA2-B324-57B29420A3DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBF2E9BE-C95E-4BA2-B324-57B29420A3DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBF2E9BE-C95E-4BA2-B324-57B29420A3DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EF35CB0A-D94E-481F-B6AA-C271B7B97C93}
+	EndGlobalSection
+EndGlobal
