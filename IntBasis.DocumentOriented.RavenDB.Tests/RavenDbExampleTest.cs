@@ -2,17 +2,16 @@ using FluentAssertions;
 
 namespace IntBasis.DocumentOriented.RavenDB.Tests;
 
-class Category
+public record Category(string? Id = null) : IDocumentEntity
 {
-    public string Id { get; set; }
-    public string Name { get; set; }
+    public string? Name { get; set; }
 }
 
-class Product
+class Product : IDocumentEntity
 {
-    public string Id { get; set; }
-    public string Name { get; internal set; }
-    public string Category { get; internal set; }
+    public string? Id { get; init; }
+    public string? Name { get; internal set; }
+    public string? Category { get; internal set; }
     public int UnitsInStock { get; internal set; }
 }
 
