@@ -38,6 +38,28 @@ public static class RavenDbExample
                                             // This process establishes the connection with the Server
                                             // and downloads various configurations
                                             // e.g. cluster topology or client configuration
+        SaveDocuments(store);
+
+        var productId = "products/1-A";
+
+        using IDocumentSession session = store.OpenSession();  // Open a session for a default 'Database'
+        Product product = session
+            .Include<Product>(x => x.Category)              // Include Category
+            .Load(productId);                               // Load the Product and start tracking
+
+        Category category = session
+            .Load<Category>(product.Category);              // No remote calls,
+                                                            // Session contains this entity from .Include
+
+        product.Name = "RavenDB";                           // Apply changes
+        category.Name = "Database";
+
+        session.SaveChanges();                              // Synchronize with the Server
+                                                            // one request processed in one transaction
+    }
+
+    private static void SaveDocuments(IDocumentStore store)
+    {
         using IDocumentSession session = store.OpenSession();  // Open a session for a default 'Database'
         // For example, in web applications, a common (and recommended) pattern is to create a session per request.
         var category = new Category
@@ -57,5 +79,4 @@ public static class RavenDbExample
         session.SaveChanges();                              // Send to the Server
                                                             // one request processed in one transaction
     }
-
 }
