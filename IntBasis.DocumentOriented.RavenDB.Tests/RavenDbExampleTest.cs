@@ -1,5 +1,3 @@
-using FluentAssertions;
-
 namespace IntBasis.DocumentOriented.RavenDB.Tests;
 
 public record Category(string? Id = null) : IDocumentEntity
