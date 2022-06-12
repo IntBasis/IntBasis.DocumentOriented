@@ -1,3 +1,4 @@
+using Raven.Client.Documents;
 using Raven.Client.ServerWide;
 using Raven.Client.ServerWide.Operations;
 
@@ -30,10 +31,13 @@ public class RavenDbExampleTest
     //    store.Maintenance.Server.Send<DatabasePutResult>(createOperation);
     //}
 
+    RavenDbConfiguration TestConfig => new("Test", "http://127.0.0.1:8080");
+    IDocumentStore DocumentStore() => RavenDbInitialization.InitializeDocumentStore(TestConfig);
+
     [Fact(DisplayName = "RavenDB Store")]
     public void Storage()
     {
-        var store = RavenDbExample.InitializeDocumentStore();
+        var store = DocumentStore();
         using var session = store.OpenSession();
         var category = new Category
         {
@@ -61,7 +65,7 @@ public class RavenDbExampleTest
     [Fact(DisplayName = "RavenDB Async Session")]
     public async Task AsyncStorage()
     {
-        var store = RavenDbExample.InitializeDocumentStore();
+        var store = DocumentStore();
         using var session1 = store.OpenAsyncSession();
         var category = new Category
         {
@@ -79,9 +83,9 @@ public class RavenDbExampleTest
     [Fact(DisplayName = "RavenDB Custom ID")]
     public void CustomId()
     {
-        var store = RavenDbExample.InitializeDocumentStore();
+        var store = DocumentStore();
         using var session1 = store.OpenSession();
-        var category = new Category("my-custom-id") {  Name = "expected" };
+        var category = new Category("my-custom-id") { Name = "expected" };
         session1.Store(category);
         session1.SaveChanges();
 
@@ -93,7 +97,7 @@ public class RavenDbExampleTest
     [Fact(DisplayName = "RavenDB Read/Modify")]
     public void ReadModify()
     {
-        var store = RavenDbExample.InitializeDocumentStore();
+        var store = DocumentStore();
         using var session = store.OpenSession();
         var productId = "products/1-A";
         var product = session.Include<Product>(x => x.Category)
