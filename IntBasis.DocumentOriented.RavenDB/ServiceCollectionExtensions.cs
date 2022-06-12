@@ -1,6 +1,5 @@
-﻿using IntBasis.DocumentOriented.RavenDB;
-using Raven.Client.Documents;
-using Raven.Client.Documents.Session;
+﻿using IntBasis.DocumentOriented;
+using IntBasis.DocumentOriented.RavenDB;
 using static IntBasis.DocumentOriented.RavenDB.RavenDbInitialization;
 
 // .NET Practice is to place ServiceCollectionExtensions in the following namespace
@@ -12,16 +11,22 @@ public static class ServiceCollectionExtensions
     /// <summary>
     /// Adds RavenDB implementation of Document Oriented Database services.
     /// <para/>
+    /// External:
+    /// <list type="bullet">
+    /// <item> <see cref="IDocumentStorage"/> </item>
+    /// </list>
+    /// <para/>
     /// Internal:
     /// <list type="bullet">
-    /// <item> <see cref="IDocumentStore"/> </item>
-    /// <item> <see cref="IDocumentSession"/> </item>
-    /// <item> <see cref="IAsyncDocumentSession"/> </item>
+    /// <item> <see cref="Raven.Client.Documents.IDocumentStore"/> </item>
+    /// <item> <see cref="Raven.Client.Documents.Session.IDocumentSession"/> </item>
+    /// <item> <see cref="Raven.Client.Documents.Session.IAsyncDocumentSession"/> </item>
     /// </list>
     /// </summary>
     public static IServiceCollection AddDocumentOrientedRavenDb(this IServiceCollection services,
                                                                 RavenDbConfiguration configuration)
     {
+        services.AddTransient<IDocumentStorage, RavenDbDocumentStorage>();
         // A single instance of the Document Store (Singleton Pattern)
         // should be created per cluster per the lifetime of your application.
         // See https://ravendb.net/docs/article-page/5.3/csharp/client-api/what-is-a-document-store

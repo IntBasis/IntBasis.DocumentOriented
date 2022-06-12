@@ -17,9 +17,6 @@ class Product : IDocumentEntity
     public string? Category { get; internal set; }
     public int UnitsInStock { get; internal set; }
 }
-
-// TODO: Use Raven Test Driver https://ravendb.net/docs/article-page/5.3/csharp/start/test-driver
-
 public class RavenDbExampleTest
 {
     //public RavenDbExampleTest()
