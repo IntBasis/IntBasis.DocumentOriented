@@ -58,6 +58,24 @@ public class RavenDbExampleTest
         session.SaveChanges();
     }
 
+    [Fact(DisplayName = "RavenDB Async Session")]
+    public async Task AsyncStorage()
+    {
+        var store = RavenDbExample.InitializeDocumentStore();
+        using var session1 = store.OpenAsyncSession();
+        var category = new Category
+        {
+            Name = "Test Async Category"
+        };
+        await session1.StoreAsync(category);
+        category.Id.Should().NotBeNullOrEmpty();
+        await session1.SaveChangesAsync();
+
+        using var session2 = store.OpenAsyncSession();
+        var loaded = await session2.LoadAsync<Category>(category.Id);
+        loaded.Name.Should().Be(category.Name);
+    }
+
     [Fact(DisplayName = "RavenDB Custom ID")]
     public void CustomId()
     {
