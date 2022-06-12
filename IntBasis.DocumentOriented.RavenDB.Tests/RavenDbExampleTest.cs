@@ -34,10 +34,9 @@ public class RavenDbExampleTest
     RavenDbConfiguration TestConfig => new("Test", "http://127.0.0.1:8080");
     IDocumentStore DocumentStore() => RavenDbInitialization.InitializeDocumentStore(TestConfig);
 
-    [Fact(DisplayName = "RavenDB Store")]
-    public void Storage()
+    [Theory(DisplayName = "RavenDB Store"), Integration]
+    public void Storage(IDocumentStore store)
     {
-        var store = DocumentStore();
         using var session = store.OpenSession();
         var category = new Category
         {
@@ -62,10 +61,9 @@ public class RavenDbExampleTest
         session.SaveChanges();
     }
 
-    [Fact(DisplayName = "RavenDB Async Session")]
-    public async Task AsyncStorage()
+    [Theory(DisplayName = "RavenDB Async Session"), Integration]
+    public async Task AsyncStorage(IDocumentStore store)
     {
-        var store = DocumentStore();
         using var session1 = store.OpenAsyncSession();
         var category = new Category
         {
@@ -94,10 +92,9 @@ public class RavenDbExampleTest
         retrieved.Name.Should().Be(expected);
     }
 
-    [Fact(DisplayName = "RavenDB Read/Modify")]
-    public void ReadModify()
+    [Theory(DisplayName = "RavenDB Read/Modify"), Integration]
+    public void ReadModify(IDocumentStore store)
     {
-        var store = DocumentStore();
         using var session = store.OpenSession();
         var productId = "products/1-A";
         var product = session.Include<Product>(x => x.Category)
