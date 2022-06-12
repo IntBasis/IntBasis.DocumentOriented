@@ -1,4 +1,6 @@
 ﻿using IntBasis.DocumentOriented.RavenDB;
+using Raven.Client.Documents;
+using Raven.Client.Documents.Session;
 using static IntBasis.DocumentOriented.RavenDB.RavenDbInitialization;
 
 // .NET Practice is to place ServiceCollectionExtensions in the following namespace
@@ -8,7 +10,14 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds RavenDB implementation of Document Oriented Database services
+    /// Adds RavenDB implementation of Document Oriented Database services.
+    /// <para/>
+    /// Internal:
+    /// <list type="bullet">
+    /// <item> <see cref="IDocumentStore"/> </item>
+    /// <item> <see cref="IDocumentSession"/> </item>
+    /// <item> <see cref="IAsyncDocumentSession"/> </item>
+    /// </list>
     /// </summary>
     public static IServiceCollection AddDocumentOrientedRavenDb(this IServiceCollection services,
                                                                 RavenDbConfiguration configuration)
