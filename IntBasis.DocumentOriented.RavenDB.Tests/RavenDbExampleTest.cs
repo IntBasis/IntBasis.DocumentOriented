@@ -80,18 +80,18 @@ public class RavenDbExampleTest
         loaded.Name.Should().Be(category.Name);
     }
 
-    [Fact(DisplayName = "RavenDB Custom ID")]
-    public void CustomId()
+    [Theory(DisplayName = "RavenDB Custom ID"), AutoMoq]
+    public void CustomId(string customId, string expected)
     {
         var store = DocumentStore();
         using var session1 = store.OpenSession();
-        var category = new Category("my-custom-id") { Name = "expected" };
+        var category = new Category(customId) { Name = expected };
         session1.Store(category);
         session1.SaveChanges();
 
         var session2 = store.OpenSession();
-        var retrieved = session2.Load<Category>("my-custom-id");
-        retrieved.Name.Should().Be("expected");
+        var retrieved = session2.Load<Category>(customId);
+        retrieved.Name.Should().Be(expected);
     }
 
     [Fact(DisplayName = "RavenDB Read/Modify")]
