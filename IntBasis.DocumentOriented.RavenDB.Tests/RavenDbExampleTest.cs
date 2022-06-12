@@ -1,4 +1,5 @@
 using Raven.Client.Documents;
+using Raven.Client.Documents.Session;
 using Raven.Client.ServerWide;
 using Raven.Client.ServerWide.Operations;
 
@@ -35,9 +36,8 @@ public class RavenDbExampleTest
     IDocumentStore DocumentStore() => RavenDbInitialization.InitializeDocumentStore(TestConfig);
 
     [Theory(DisplayName = "RavenDB Store"), Integration]
-    public void Storage(IDocumentStore store)
+    public void Storage(IDocumentSession session)
     {
-        using var session = store.OpenSession();
         var category = new Category
         {
             Name = "Test Database Category"
@@ -62,9 +62,8 @@ public class RavenDbExampleTest
     }
 
     [Theory(DisplayName = "RavenDB Async Session"), Integration]
-    public async Task AsyncStorage(IDocumentStore store)
+    public async Task AsyncStorage(IAsyncDocumentSession session1, IAsyncDocumentSession session2)
     {
-        using var session1 = store.OpenAsyncSession();
         var category = new Category
         {
             Name = "Test Async Category"
@@ -73,7 +72,6 @@ public class RavenDbExampleTest
         category.Id.Should().NotBeNullOrEmpty();
         await session1.SaveChangesAsync();
 
-        using var session2 = store.OpenAsyncSession();
         var loaded = await session2.LoadAsync<Category>(category.Id);
         loaded.Name.Should().Be(category.Name);
     }
@@ -93,9 +91,8 @@ public class RavenDbExampleTest
     }
 
     [Theory(DisplayName = "RavenDB Read/Modify"), Integration]
-    public void ReadModify(IDocumentStore store)
+    public void ReadModify(IDocumentSession session)
     {
-        using var session = store.OpenSession();
         var productId = "products/1-A";
         var product = session.Include<Product>(x => x.Category)
                              .Load(productId);
