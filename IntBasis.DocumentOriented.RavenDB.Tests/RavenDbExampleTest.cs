@@ -58,6 +58,20 @@ public class RavenDbExampleTest
         session.SaveChanges();
     }
 
+    [Fact(DisplayName = "RavenDB Custom ID")]
+    public void CustomId()
+    {
+        var store = RavenDbExample.InitializeDocumentStore();
+        using var session1 = store.OpenSession();
+        var category = new Category("my-custom-id") {  Name = "expected" };
+        session1.Store(category);
+        session1.SaveChanges();
+
+        var session2 = store.OpenSession();
+        var retrieved = session2.Load<Category>("my-custom-id");
+        retrieved.Name.Should().Be("expected");
+    }
+
     [Fact(DisplayName = "RavenDB Read/Modify")]
     public void ReadModify()
     {
