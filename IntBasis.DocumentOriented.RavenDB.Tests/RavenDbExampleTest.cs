@@ -1,3 +1,6 @@
+using Raven.Client.ServerWide;
+using Raven.Client.ServerWide.Operations;
+
 namespace IntBasis.DocumentOriented.RavenDB.Tests;
 
 public record Category(string? Id = null) : IDocumentEntity
@@ -13,8 +16,20 @@ class Product : IDocumentEntity
     public int UnitsInStock { get; internal set; }
 }
 
+// TODO: Use Raven Test Driver https://ravendb.net/docs/article-page/5.3/csharp/start/test-driver
+
 public class RavenDbExampleTest
 {
+    //public RavenDbExampleTest()
+    //{
+    //    var store = RavenDbExample.InitializeDocumentStore();
+    //    const string DatabaseName = "Test";
+    //    var deleteOperation = new DeleteDatabasesOperation(DatabaseName, hardDelete: true, fromNode: null, timeToWaitForConfirmation: null);
+    //    store.Maintenance.Server.Send<DeleteDatabaseResult>(deleteOperation);
+    //    var createOperation = new CreateDatabaseOperation(new DatabaseRecord(DatabaseName));
+    //    store.Maintenance.Server.Send<DatabasePutResult>(createOperation);
+    //}
+
     [Fact(DisplayName = "RavenDB Store")]
     public void Storage()
     {
