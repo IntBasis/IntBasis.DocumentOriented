@@ -81,4 +81,23 @@ public class RavenDbDocumentStorageTest
         var stored = session2.Load<Category>(entity.Id);
         stored.Name.Should().Be(expected);
     }
+
+    [Theory(DisplayName = "Store Twice"), Integration]
+    public void StoreTwice(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
+    {
+        // Storing something twice should replace the first one
+        var expected = Guid.NewGuid().ToString();
+        var entity = new Category { Name = "Original name (not expected)" };
+        subject.Store(entity);
+
+        // Set the name to the new expected value and Store same object again
+        entity.Name = expected;
+        subject.Store(entity);
+
+        // Verify against separate manually created Session
+        using var session = underlyingStore.OpenSession();
+        var retrieved = session.Load<Category>(entity.Id);
+        retrieved.Should().NotBeNull();
+        retrieved.Name.Should().Be(expected);
+    }
 }

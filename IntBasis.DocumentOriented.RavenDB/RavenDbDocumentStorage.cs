@@ -34,7 +34,12 @@ public class RavenDbDocumentStorage : IDocumentStorage
     /// </summary>
     private void DoNotTrackChanges(IDocumentEntity entity)
     {
+        // We cannot use IgnoreChangesFor(entity)
+        // because it doesn't support the "Store Twice" scenario
         // https://ravendb.net/docs/article-page/5.3/csharp/client-api/session/how-to/ignore-entity-changes
-        documentSession.Advanced.IgnoreChangesFor(entity);
+        // But, we can use Evict to remove the entity from local session storage
+        // so that when it is stored the second time it is like it has never been seen
+        // https://ravendb.net/docs/article-page/5.3/csharp/client-api/session/how-to/evict-entity-from-a-session
+        documentSession.Advanced.Evict(entity);
     }
 }
