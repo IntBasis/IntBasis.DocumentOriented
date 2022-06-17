@@ -41,4 +41,20 @@ public class SchemaVersionedDocumentStorageTest
                      .ThrowAsync<InvalidOperationException>()
                      .WithMessage("*schema version*");
     }
+
+    [Theory(DisplayName = "Basic Request"), DictionaryStorage]
+    public async Task BasicRequest(DictionarySchemaVersionService schemaVersionService,
+                                   SchemaVersionedDocumentStorage subject)
+    {
+        var id = "11";
+        var entity = new VersionedEntity(schemaVersion: 1, id: id, value: "v");
+        schemaVersionService.SetSchemaVersion(entity.GetType(), 1);
+        await subject.Store(entity);
+
+        var retrieval = await subject.Retrieve<VersionedEntity>(id, () => throw new Exception("Should not refresh because schema is current"));
+
+        retrieval.Entity.Should().Be(entity);
+        retrieval.IsStale.Should().BeFalse();
+        (await retrieval.CurrentVersion).Should().Be(entity);
+    }
 }

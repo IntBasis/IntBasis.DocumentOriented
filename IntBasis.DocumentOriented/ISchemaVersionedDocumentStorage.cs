@@ -37,5 +37,5 @@ public interface ISchemaVersionedDocumentStorage
     /// then <paramref name="refresh"/> is called to get the latest version of the entity.
     /// The latest version of entity will be stored.
     /// </summary>
-    SchemaVersionedRetrieval<T> Retrieve<T>(string id, Func<Task<T>> refresh) where T : ISchemaVersionedDocumentEntity;
+    Task<SchemaVersionedRetrieval<T>> Retrieve<T>(string id, Func<Task<T>> refresh) where T : ISchemaVersionedDocumentEntity;
 }

@@ -15,9 +15,15 @@ public class SchemaVersionedDocumentStorage : ISchemaVersionedDocumentStorage
     }
 
     /// <inheritdoc/>
-    public SchemaVersionedRetrieval<T> Retrieve<T>(string id, Func<Task<T>> refresh) where T : ISchemaVersionedDocumentEntity
+    public async Task<SchemaVersionedRetrieval<T>> Retrieve<T>(string id, Func<Task<T>> refresh) where T : ISchemaVersionedDocumentEntity
     {
-        throw new NotImplementedException();
+        var entity = await documentStorage.Retrieve<T>(id);
+        return new SchemaVersionedRetrieval<T>
+        {
+            Entity = entity,
+            IsStale = false,
+            CurrentVersion = Task.FromResult(entity)
+        };
     }
 
     /// <inheritdoc/>
