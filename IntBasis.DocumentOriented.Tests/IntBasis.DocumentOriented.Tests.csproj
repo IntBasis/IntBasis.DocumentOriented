@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IntBasis.DocumentOriented.Testing\IntBasis.DocumentOriented.Testing.csproj" />
     <ProjectReference Include="..\IntBasis.DocumentOriented\IntBasis.DocumentOriented.csproj" />
   </ItemGroup>
 
