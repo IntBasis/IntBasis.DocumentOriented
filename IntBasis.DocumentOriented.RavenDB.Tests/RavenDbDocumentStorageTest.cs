@@ -5,12 +5,12 @@ namespace IntBasis.DocumentOriented.RavenDB.Tests;
 public class RavenDbDocumentStorageTest
 {
     [Theory(DisplayName = "Store"), Integration]
-    public void Store(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
+    public async Task StoreAsync(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
     {
         var expected = Guid.NewGuid().ToString();
         var entity = new Category { Name = expected };
 
-        subject.Store(entity);
+        await subject.Store(entity);
         entity.Id.Should().NotBeNullOrEmpty();
 
         // Verify against separate manually created Session
@@ -21,7 +21,7 @@ public class RavenDbDocumentStorageTest
     }
 
     [Theory(DisplayName = "Retrieve"), Integration]
-    public void Retrieve(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
+    public async Task RetrieveAsync(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
     {
         var expected = Guid.NewGuid().ToString();
         var entity = new Category { Name = expected };
@@ -30,12 +30,12 @@ public class RavenDbDocumentStorageTest
         session.Store(entity);
         session.SaveChanges();
 
-        var retrieved = subject.Retrieve<Category>(entity.Id);
+        var retrieved = await subject.Retrieve<Category>(entity.Id);
         retrieved.Name.Should().Be(expected);
     }
 
     [Theory(DisplayName = "IgnoreChanges: Initial Store"), Integration]
-    public void IgnoreChanges(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
+    public async Task IgnoreChangesAsync(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
     {
         // RavenDB Sessions automatically track changes for all returned entities
         // We do not want to save changes to Entity A when Entity B is being stored
@@ -43,10 +43,10 @@ public class RavenDbDocumentStorageTest
         var expected = "Initial Name (expected)";
         var notExpected = "Changed Name (should not be saved)";
         var entity = new Category { Name = expected };
-        subject.Store(entity);
+        await subject.Store(entity);
 
         entity.Name = notExpected;
-        subject.Store(new Category { Name = "Another unrelated entity" });
+        await subject.Store(new Category { Name = "Another unrelated entity" });
 
         // Verify against separate manually created Session
         using var session = underlyingStore.OpenSession();
@@ -56,7 +56,7 @@ public class RavenDbDocumentStorageTest
     }
 
     [Theory(DisplayName = "IgnoreChanges: Retrieved"), Integration]
-    public void IgnoreChangesRetrieve(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
+    public async Task IgnoreChangesRetrieveAsync(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
     {
         // RavenDB Sessions automatically track changes for all returned entities
         // We do not want to save changes to Entity A when Entity B is being stored
@@ -72,9 +72,9 @@ public class RavenDbDocumentStorageTest
         }
 
         // Act: Retrieve and change retrieved record, then store a different entity
-        var retrieved = subject.Retrieve<Category>(entity.Id);
+        var retrieved = await subject.Retrieve<Category>(entity.Id);
         retrieved.Name = notExpected;
-        subject.Store(new Category { Name = "Another unrelated entity" });
+        await subject.Store(new Category { Name = "Another unrelated entity" });
 
         // Verify against separate manually created Session
         using var session2 = underlyingStore.OpenSession();
@@ -83,16 +83,16 @@ public class RavenDbDocumentStorageTest
     }
 
     [Theory(DisplayName = "Store Twice"), Integration]
-    public void StoreTwice(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
+    public async Task StoreTwiceAsync(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
     {
         // Storing something twice should replace the first one
         var expected = Guid.NewGuid().ToString();
         var entity = new Category { Name = "Original name (not expected)" };
-        subject.Store(entity);
+        await subject.Store(entity);
 
         // Set the name to the new expected value and Store same object again
         entity.Name = expected;
-        subject.Store(entity);
+        await subject.Store(entity);
 
         // Verify against separate manually created Session
         using var session = underlyingStore.OpenSession();

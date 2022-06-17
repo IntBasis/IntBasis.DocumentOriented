@@ -1,4 +1,6 @@
-﻿namespace IntBasis.DocumentOriented;
+﻿using System.Threading.Tasks;
+
+namespace IntBasis.DocumentOriented;
 
 /// <summary>
 /// Encapsulates the simple storage and retrieval of individual document entities by Id.
@@ -9,10 +11,10 @@ public interface IDocumentStorage
     /// Store the given entity in configured Document storage.
     /// The <see cref="IDocumentEntity.Id"/> is set to a unique identifier (if it was not already set).
     /// </summary>
-    void Store(IDocumentEntity entity);
+    Task Store(IDocumentEntity entity);
 
     /// <summary>
     /// Retrieve the document entity from storage by the given <paramref name="id"/>.
     /// </summary>
-    T Retrieve<T>(string id) where T : IDocumentEntity;
+    Task<T> Retrieve<T>(string id) where T : IDocumentEntity;
 }

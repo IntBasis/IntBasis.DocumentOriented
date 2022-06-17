@@ -1,30 +1,31 @@
 ﻿using Raven.Client.Documents.Session;
 using System;
+using System.Threading.Tasks;
 
 namespace IntBasis.DocumentOriented.RavenDB;
 
 public class RavenDbDocumentStorage : IDocumentStorage
 {
-    private readonly IDocumentSession documentSession;
+    private readonly IAsyncDocumentSession documentSession;
 
-    public RavenDbDocumentStorage(IDocumentSession documentSession)
+    public RavenDbDocumentStorage(IAsyncDocumentSession documentSession)
     {
         this.documentSession = documentSession ?? throw new ArgumentNullException(nameof(documentSession));
     }
 
     /// <inheritdoc/>
-    public T Retrieve<T>(string id) where T : IDocumentEntity
+    public async Task<T> Retrieve<T>(string id) where T : IDocumentEntity
     {
-        var entity = documentSession.Load<T>(id);
+        var entity = await documentSession.LoadAsync<T>(id);
         DoNotTrackChanges(entity);
         return entity;
     }
 
     /// <inheritdoc/>
-    public void Store(IDocumentEntity entity)
+    public async Task Store(IDocumentEntity entity)
     {
-        documentSession.Store(entity);
-        documentSession.SaveChanges();
+        await documentSession.StoreAsync(entity);
+        await documentSession.SaveChangesAsync();
         DoNotTrackChanges(entity);
     }
 
