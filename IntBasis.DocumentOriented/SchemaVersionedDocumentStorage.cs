@@ -14,13 +14,25 @@ public class SchemaVersionedDocumentStorage : ISchemaVersionedDocumentStorage
         this.schemaVersionService = schemaVersionService ?? throw new ArgumentNullException(nameof(schemaVersionService));
     }
 
+    /// <inheritdoc/>
     public SchemaVersionedRetrieval<T> Retrieve<T>(string id, Func<Task<T>> refresh) where T : ISchemaVersionedDocumentEntity
     {
         throw new NotImplementedException();
     }
 
+    /// <inheritdoc/>
     public async Task Store(ISchemaVersionedDocumentEntity entity)
     {
+        if (entity is null)
+            throw new ArgumentNullException(nameof(entity));
+        var type = entity.GetType();
+        var currentVersion = schemaVersionService.GetCurrentSchemaVersion(type);
+        if (entity.SchemaVersion < currentVersion)
+        {
+            string message = $"The entity's schema version ({entity.SchemaVersion}) " +
+                $"is less than the current schema version ({currentVersion}) for Type '{type}'.";
+            throw new InvalidOperationException(message);
+        }
         await documentStorage.Store(entity);
     }
 }

@@ -7,7 +7,7 @@ internal class DictionaryDocumentStorage : IDocumentStorage
 
     public Task<T> Retrieve<T>(string id) where T : IDocumentEntity
     {
-        var entity = (T) dictionary[id];
+        var entity = (T)dictionary[id];
         return Task.FromResult(entity);
     }
 
@@ -70,5 +70,20 @@ public class SchemaVersionedDocumentStorageTest
         await subject.Store(entity);
 
         documentStorage.dictionary["10"].Should().Be(entity);
+    }
+
+    [Fact(DisplayName = "Old Version Storage")]
+    public async Task OldVersion()
+    {
+        var schemaVersionService = new DictionarySchemaVersionService();
+        var documentStorage = new DictionaryDocumentStorage();
+        var subject = new SchemaVersionedDocumentStorage(documentStorage, schemaVersionService);
+        var entity = new VersionedEntity(schemaVersion: 1, id: "10", value: "v");
+        schemaVersionService.SetSchemaVersion(entity.GetType(), 2);
+
+        await subject.Invoking(s => s.Store(entity))
+                     .Should()
+                     .ThrowAsync<InvalidOperationException>()
+                     .WithMessage("*schema version*");
     }
 }

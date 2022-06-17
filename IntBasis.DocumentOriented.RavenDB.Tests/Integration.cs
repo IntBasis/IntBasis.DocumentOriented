@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using IntBasis.DocumentOriented.Testing;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace IntBasis.DocumentOriented.RavenDB.Tests;
 

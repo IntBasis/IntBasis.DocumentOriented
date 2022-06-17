@@ -4,13 +4,10 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />
-    <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
     <PackageReference Include="FluentAssertions" Version="6.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -26,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IntBasis.DocumentOriented.RavenDB\IntBasis.DocumentOriented.RavenDB.csproj" />
+    <ProjectReference Include="..\IntBasis.DocumentOriented.Testing\IntBasis.DocumentOriented.Testing.csproj" />
   </ItemGroup>
 
 </Project>

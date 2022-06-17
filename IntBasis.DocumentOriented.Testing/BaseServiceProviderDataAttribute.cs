@@ -1,9 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Xunit.Sdk;
 
-namespace IntBasis.DocumentOriented.RavenDB.Tests;
+namespace IntBasis.DocumentOriented.Testing;
 
 public static class TypeExtensions
 {

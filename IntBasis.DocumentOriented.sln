@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented", "IntBasis.DocumentOriented\IntBasis.DocumentOriented.csproj", "{EBF2E9BE-C95E-4BA2-B324-57B29420A3DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntBasis.DocumentOriented", "IntBasis.DocumentOriented\IntBasis.DocumentOriented.csproj", "{EBF2E9BE-C95E-4BA2-B324-57B29420A3DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.Tests", "IntBasis.DocumentOriented.Tests\IntBasis.DocumentOriented.Tests.csproj", "{58C6258D-AD44-4CAB-9E77-364B0B3AB12D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntBasis.DocumentOriented.Tests", "IntBasis.DocumentOriented.Tests\IntBasis.DocumentOriented.Tests.csproj", "{58C6258D-AD44-4CAB-9E77-364B0B3AB12D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.RavenDB", "IntBasis.DocumentOriented.RavenDB\IntBasis.DocumentOriented.RavenDB.csproj", "{70564CAA-7658-48E4-A03F-DCB983355606}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntBasis.DocumentOriented.RavenDB", "IntBasis.DocumentOriented.RavenDB\IntBasis.DocumentOriented.RavenDB.csproj", "{70564CAA-7658-48E4-A03F-DCB983355606}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.RavenDB.Tests", "IntBasis.DocumentOriented.RavenDB.Tests\IntBasis.DocumentOriented.RavenDB.Tests.csproj", "{23468FF7-AFFF-495F-8F82-49101E129B48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntBasis.DocumentOriented.RavenDB.Tests", "IntBasis.DocumentOriented.RavenDB.Tests\IntBasis.DocumentOriented.RavenDB.Tests.csproj", "{23468FF7-AFFF-495F-8F82-49101E129B48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.Testing", "IntBasis.DocumentOriented.Testing\IntBasis.DocumentOriented.Testing.csproj", "{18AEEBAD-09E7-4567-B864-1B8B969B8105}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{23468FF7-AFFF-495F-8F82-49101E129B48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23468FF7-AFFF-495F-8F82-49101E129B48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23468FF7-AFFF-495F-8F82-49101E129B48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18AEEBAD-09E7-4567-B864-1B8B969B8105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18AEEBAD-09E7-4567-B864-1B8B969B8105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18AEEBAD-09E7-4567-B864-1B8B969B8105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18AEEBAD-09E7-4567-B864-1B8B969B8105}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
