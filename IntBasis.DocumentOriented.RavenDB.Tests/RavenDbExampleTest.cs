@@ -5,14 +5,30 @@ using Raven.Client.ServerWide.Operations;
 
 namespace IntBasis.DocumentOriented.RavenDB.Tests;
 
-public record Category(string? Id = null) : IDocumentEntity
+//public record Category(string? Id = null) : IDocumentEntity
+//{
+//    public string? Name { get; set; }
+//}
+
+class Category : IDocumentEntity
 {
-    public string? Name { get; set; }
+    public string? Id { get; set; }
+    public string? Name { get; internal set; }
+
+    public Category()
+    {
+    }
+
+    public Category(string? id, string? name)
+    {
+        Id = id;
+        Name = name;
+    }
 }
 
 class Product : IDocumentEntity
 {
-    public string? Id { get; init; }
+    public string? Id { get; set; }
     public string? Name { get; internal set; }
     public string? Category { get; internal set; }
     public int UnitsInStock { get; internal set; }
@@ -78,7 +94,7 @@ public class RavenDbExampleTest
     {
         var store = DocumentStore();
         using var session1 = store.OpenSession();
-        var category = new Category(customId) { Name = expected };
+        var category = new Category(customId, expected);
         session1.Store(category);
         session1.SaveChanges();
 
