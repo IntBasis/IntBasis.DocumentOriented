@@ -7,6 +7,8 @@ public class DictionaryDocumentStorage : IDocumentStorage
 
     public Task<T> Retrieve<T>(string id) where T : IDocumentEntity
     {
+        if (!dictionary.ContainsKey(id))
+            return Task.FromResult(default(T));
         var entity = (T)dictionary[id];
         return Task.FromResult(entity);
     }

@@ -35,6 +35,8 @@ public class RavenDbDocumentStorage : IDocumentStorage
     /// </summary>
     private void DoNotTrackChanges(IDocumentEntity entity)
     {
+        if (entity is null)
+            return;
         // We cannot use IgnoreChangesFor(entity)
         // because it doesn't support the "Store Twice" scenario
         // https://ravendb.net/docs/article-page/5.3/csharp/client-api/session/how-to/ignore-entity-changes

@@ -15,6 +15,8 @@ public interface IDocumentStorage
 
     /// <summary>
     /// Retrieve the document entity from storage by the given <paramref name="id"/>.
+    /// <para/>
+    /// Returns null if the entity is not found.
     /// </summary>
     Task<T> Retrieve<T>(string id) where T : IDocumentEntity;
 }

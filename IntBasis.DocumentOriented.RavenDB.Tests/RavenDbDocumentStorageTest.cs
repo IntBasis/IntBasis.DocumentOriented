@@ -34,6 +34,13 @@ public class RavenDbDocumentStorageTest
         retrieved.Name.Should().Be(expected);
     }
 
+    [Theory(DisplayName = "Retrieve Missing returns null"), Integration]
+    public async Task Missing(RavenDbDocumentStorage subject)
+    {
+        var retrieved = await subject.Retrieve<Category>("1");
+        retrieved.Should().BeNull();
+    }
+
     [Theory(DisplayName = "IgnoreChanges: Initial Store"), Integration]
     public async Task IgnoreChangesAsync(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
     {
