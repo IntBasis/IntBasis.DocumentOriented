@@ -18,11 +18,28 @@ public class SchemaVersionedDocumentStorage : ISchemaVersionedDocumentStorage
     public async Task<SchemaVersionedRetrieval<T>> Retrieve<T>(string id, Func<Task<T>> refresh) where T : ISchemaVersionedDocumentEntity
     {
         var entity = await documentStorage.Retrieve<T>(id);
+        var type = entity.GetType();
+        var currentVersion = schemaVersionService.GetCurrentSchemaVersion(type);
+        if (entity.SchemaVersion >= currentVersion)
+            return new SchemaVersionedRetrieval<T>
+            {
+                Entity = entity,
+                IsStale = false,
+                CurrentVersionEntity = Task.FromResult(entity)
+            };
+        // When the stored Entity is stale we must request a "refreshed" entity
+        // and store than in underlying document storage
+        // and make it available via the retrieval object
         return new SchemaVersionedRetrieval<T>
         {
             Entity = entity,
-            IsStale = false,
-            CurrentVersion = Task.FromResult(entity)
+            IsStale = true,
+            CurrentVersionEntity = Task.Run(async () =>
+            {
+                var refreshedEntity = await refresh();
+                await documentStorage.Store(refreshedEntity);
+                return refreshedEntity;
+            })
         };
     }
 
