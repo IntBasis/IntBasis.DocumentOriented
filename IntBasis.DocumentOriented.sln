@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntBasis.DocumentOriented.R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.Testing", "IntBasis.DocumentOriented.Testing\IntBasis.DocumentOriented.Testing.csproj", "{18AEEBAD-09E7-4567-B864-1B8B969B8105}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.MongoDB", "IntBasis.DocumentOriented.MongoDB\IntBasis.DocumentOriented.MongoDB.csproj", "{5D389665-4919-424E-917A-328C876C13E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.MongoDB.Tests", "IntBasis.DocumentOriented.MongoDB.Tests\IntBasis.DocumentOriented.MongoDB.Tests.csproj", "{18336C34-5471-4B45-BC54-66157365EF6C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{18AEEBAD-09E7-4567-B864-1B8B969B8105}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18AEEBAD-09E7-4567-B864-1B8B969B8105}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18AEEBAD-09E7-4567-B864-1B8B969B8105}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D389665-4919-424E-917A-328C876C13E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D389665-4919-424E-917A-328C876C13E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D389665-4919-424E-917A-328C876C13E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D389665-4919-424E-917A-328C876C13E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18336C34-5471-4B45-BC54-66157365EF6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18336C34-5471-4B45-BC54-66157365EF6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18336C34-5471-4B45-BC54-66157365EF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18336C34-5471-4B45-BC54-66157365EF6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
