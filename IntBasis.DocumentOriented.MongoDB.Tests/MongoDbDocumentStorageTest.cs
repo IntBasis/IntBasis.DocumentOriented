@@ -1,10 +1,10 @@
 namespace IntBasis.DocumentOriented.MongoDB.Tests;
 
-public class UnitTest1
+public class MongoDbDocumentStorageTest
 {
     [Fact]
     public void Test1()
     {
-        new Class1();
+        new MongoDbDocumentStorage();
     }
 }
