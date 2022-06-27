@@ -1,4 +1,6 @@
-﻿namespace IntBasis.DocumentOriented.MongoDB;
+﻿using MongoDB.Driver;
+
+namespace IntBasis.DocumentOriented.MongoDB;
 
 public class MongoDbDocumentStorage : IDocumentStorage
 {
@@ -9,6 +11,11 @@ public class MongoDbDocumentStorage : IDocumentStorage
 
     public Task Store(IDocumentEntity entity)
     {
-        throw new NotImplementedException();
+        var connectionString = "mongodb://localhost:27017";
+        var client = new MongoClient(connectionString);
+        var databaseName = "test";
+        var database = client.GetDatabase(databaseName);
+        // database.GetCollection<T>
+        return Task.CompletedTask;
     }
 }
