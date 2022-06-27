@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IntBasis.DocumentOriented.MongoDB\IntBasis.DocumentOriented.MongoDB.csproj" />
+    <ProjectReference Include="..\IntBasis.DocumentOriented.Testing\IntBasis.DocumentOriented.Testing.csproj" />
   </ItemGroup>
 
 </Project>

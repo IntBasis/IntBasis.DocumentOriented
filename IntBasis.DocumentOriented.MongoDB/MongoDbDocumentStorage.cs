@@ -6,12 +6,17 @@ namespace IntBasis.DocumentOriented.MongoDB;
 
 public class MongoDbDocumentStorage : IDocumentStorage
 {
+    private readonly IMongoDatabaseService mongoDatabaseService;
+
+    public MongoDbDocumentStorage(IMongoDatabaseService mongoDatabaseService)
+    {
+        this.mongoDatabaseService = mongoDatabaseService;
+    }
+
     /// <inheritdoc/>
     public async Task<T> Retrieve<T>(string id) where T : IDocumentEntity
     {
-        var mongoDatabase = OpenTestDatabase();
-        var collectionName = GetCollectionName<T>();
-        var collection = mongoDatabase.GetCollection<T>(collectionName);
+        var collection = GetCollection<T>();
         var find = collection.Find<T>(document => document.Id == id);
         return await find.FirstOrDefaultAsync();
     }
@@ -19,20 +24,16 @@ public class MongoDbDocumentStorage : IDocumentStorage
     /// <inheritdoc/>
     public async Task Store<T>(T entity) where T : IDocumentEntity
     {
-        IMongoDatabase database = OpenTestDatabase();
-        var collectionName = GetCollectionName<T>();
-        var collection = database.GetCollection<T>(collectionName);
+        var collection = GetCollection<T>();
         entity.Id = ObjectId.GenerateNewId().ToString();
         await collection.InsertOneAsync(entity);
     }
 
-    internal static IMongoDatabase OpenTestDatabase()
+    private IMongoCollection<T> GetCollection<T>() where T : IDocumentEntity
     {
-        var connectionString = "mongodb://localhost:27017";
-        var client = new MongoClient(connectionString);
-        var databaseName = "test";
-        var database = client.GetDatabase(databaseName);
-        return database;
+        var mongoDatabase = mongoDatabaseService.GetDatabase();
+        var collectionName = GetCollectionName<T>();
+        return mongoDatabase.GetCollection<T>(collectionName);
     }
 
     internal static string GetCollectionName<T>()

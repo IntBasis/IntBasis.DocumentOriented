@@ -20,16 +20,15 @@ class Category : IDocumentEntity
 
 public class MongoDbDocumentStorageTest
 {
-    [Fact(DisplayName = "Store")]
-    public async Task Storage()
+    [Theory(DisplayName = "Store"), Integration]
+    public async Task Storage(MongoDbDocumentStorage subject, IMongoDatabaseService mongoDatabaseService)
     {
-        var subject = new MongoDbDocumentStorage();
         const string name = "storage test";
         var entity = new Category(name);
         await subject.Store(entity);
         entity.Id.Should().NotBeNull();
 
-        var mongoDatabase = MongoDbDocumentStorage.OpenTestDatabase();
+        var mongoDatabase = mongoDatabaseService.GetDatabase();
         var collectionName = "categories";
         var collection = mongoDatabase.GetCollection<Category>(collectionName);
         var found = collection.Find<Category>(doc => doc.Id == entity.Id)
@@ -38,10 +37,10 @@ public class MongoDbDocumentStorageTest
         found.Name.Should().Be(name);
     }
 
-    [Fact(DisplayName = "Retrieve")]
-    public async Task Retrieval()
+    [Theory(DisplayName = "Retrieve"), Integration]
+    public async Task Retrieval(MongoDbDocumentStorage subject, IMongoDatabaseService mongoDatabaseService)
     {
-        var mongoDatabase = MongoDbDocumentStorage.OpenTestDatabase();
+        var mongoDatabase = mongoDatabaseService.GetDatabase();
         var collectionName = "categories";
         var collection = mongoDatabase.GetCollection<Category>(collectionName);
         var id = Guid.NewGuid().ToString();
@@ -49,7 +48,6 @@ public class MongoDbDocumentStorageTest
         var inserted = new Category(id, name);
         collection.InsertOne(inserted);
 
-        var subject = new MongoDbDocumentStorage();
         var retrieved = await subject.Retrieve<Category>(id);
 
         retrieved.Should().BeEquivalentTo(inserted);
