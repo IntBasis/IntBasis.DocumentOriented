@@ -11,7 +11,7 @@ public interface IDocumentStorage
     /// Store the given entity in configured Document storage.
     /// The <see cref="IDocumentEntity.Id"/> is set to a unique identifier (if it was not already set).
     /// </summary>
-    Task Store(IDocumentEntity entity);
+    Task Store<T>(T entity) where T : IDocumentEntity;
 
     /// <summary>
     /// Retrieve the document entity from storage by the given <paramref name="id"/>.

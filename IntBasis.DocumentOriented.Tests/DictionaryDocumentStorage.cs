@@ -13,7 +13,7 @@ public class DictionaryDocumentStorage : IDocumentStorage
         return Task.FromResult(entity);
     }
 
-    public Task Store(IDocumentEntity entity)
+    public Task Store<T>(T entity) where T : IDocumentEntity
     {
         // Use given ID if it has one; otherwise generate one.
         var id = entity.Id ?? GetNextId();

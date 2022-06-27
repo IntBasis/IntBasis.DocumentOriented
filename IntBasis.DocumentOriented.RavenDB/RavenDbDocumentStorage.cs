@@ -22,7 +22,7 @@ public class RavenDbDocumentStorage : IDocumentStorage
     }
 
     /// <inheritdoc/>
-    public async Task Store(IDocumentEntity entity)
+    public async Task Store<T>(T entity) where T : IDocumentEntity
     {
         await documentSession.StoreAsync(entity);
         await documentSession.SaveChangesAsync();
