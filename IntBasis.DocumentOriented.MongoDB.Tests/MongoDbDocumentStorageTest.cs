@@ -24,24 +24,25 @@ public class MongoDbDocumentStorageTest
     public async Task Storage()
     {
         var subject = new MongoDbDocumentStorage();
-        var entity = new Category("test category");
+        const string name = "storage test";
+        var entity = new Category(name);
         await subject.Store(entity);
         entity.Id.Should().NotBeNull();
 
         var mongoDatabase = MongoDbDocumentStorage.OpenTestDatabase();
-        var collectionName = "entities";
+        var collectionName = "categories";
         var collection = mongoDatabase.GetCollection<Category>(collectionName);
         var found = collection.Find<Category>(doc => doc.Id == entity.Id)
                               .FirstOrDefault();
         found.Id.Should().Be(entity.Id);
-        found.Name.Should().Be("test category");
+        found.Name.Should().Be(name);
     }
 
     [Fact(DisplayName = "Retrieve")]
     public async Task Retrieval()
     {
         var mongoDatabase = MongoDbDocumentStorage.OpenTestDatabase();
-        var collectionName = "entities";
+        var collectionName = "categories";
         var collection = mongoDatabase.GetCollection<Category>(collectionName);
         var id = Guid.NewGuid().ToString();
         const string name = "retrieval test";

@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using Humanizer;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace IntBasis.DocumentOriented.MongoDB;
@@ -9,7 +10,7 @@ public class MongoDbDocumentStorage : IDocumentStorage
     public async Task<T> Retrieve<T>(string id) where T : IDocumentEntity
     {
         var mongoDatabase = OpenTestDatabase();
-        var collectionName = "entities";
+        var collectionName = GetCollectionName<T>();
         var collection = mongoDatabase.GetCollection<T>(collectionName);
         var find = collection.Find<T>(document => document.Id == id);
         return await find.FirstOrDefaultAsync();
@@ -19,7 +20,7 @@ public class MongoDbDocumentStorage : IDocumentStorage
     public async Task Store<T>(T entity) where T : IDocumentEntity
     {
         IMongoDatabase database = OpenTestDatabase();
-        var collectionName = "entities";
+        var collectionName = GetCollectionName<T>();
         var collection = database.GetCollection<T>(collectionName);
         entity.Id = ObjectId.GenerateNewId().ToString();
         await collection.InsertOneAsync(entity);
@@ -32,5 +33,15 @@ public class MongoDbDocumentStorage : IDocumentStorage
         var databaseName = "test";
         var database = client.GetDatabase(databaseName);
         return database;
+    }
+
+    internal static string GetCollectionName<T>()
+    {
+        // https://stackoverflow.com/a/45335909/483776
+        // By convention collection names are plural of the type
+        var typeName = typeof(T).Name;
+        var plural = typeName.Pluralize();
+        // And are lower-cased
+        return plural.ToLowerInvariant();
     }
 }
