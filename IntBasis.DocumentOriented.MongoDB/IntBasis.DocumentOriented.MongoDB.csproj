@@ -17,4 +17,7 @@
     <PackageReference Include="MongoDB.Driver" Version="2.16.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="$(AssemblyName).Tests" />
+  </ItemGroup>
 </Project>

@@ -1,3 +1,5 @@
+using MongoDB.Driver;
+
 namespace IntBasis.DocumentOriented.MongoDB.Tests;
 
 class Category : IDocumentEntity
@@ -19,6 +21,13 @@ public class MongoDbDocumentStorageTest
         var subject = new MongoDbDocumentStorage();
         var entity = new Category("test category");
         await subject.Store(entity);
-        // entity.Id.Should().NotBeNull();
+        entity.Id.Should().NotBeNull();
+
+        var mongoDatabase = MongoDbDocumentStorage.OpenTestDatabase();
+        var collectionName = "entities";
+        var collection = mongoDatabase.GetCollection<Category>(collectionName);
+        var found = collection.Find<Category>(doc => doc.Id == entity.Id).FirstOrDefault();
+        found.Id.Should().Be(entity.Id);
+        found.Name.Should().Be("test category");
     }
 }
