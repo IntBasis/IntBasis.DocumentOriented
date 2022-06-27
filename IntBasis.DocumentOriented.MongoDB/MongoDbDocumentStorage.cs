@@ -6,9 +6,13 @@ namespace IntBasis.DocumentOriented.MongoDB;
 public class MongoDbDocumentStorage : IDocumentStorage
 {
     /// <inheritdoc/>
-    public Task<T> Retrieve<T>(string id) where T : IDocumentEntity
+    public async Task<T> Retrieve<T>(string id) where T : IDocumentEntity
     {
-        throw new NotImplementedException();
+        var mongoDatabase = OpenTestDatabase();
+        var collectionName = "entities";
+        var collection = mongoDatabase.GetCollection<T>(collectionName);
+        var find = collection.Find<T>(document => document.Id == id);
+        return await find.FirstOrDefaultAsync();
     }
 
     /// <inheritdoc/>
