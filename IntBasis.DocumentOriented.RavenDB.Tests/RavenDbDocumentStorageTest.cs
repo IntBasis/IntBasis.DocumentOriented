@@ -58,6 +58,25 @@ public class RavenDbDocumentStorageTest
         retrieved.Should().BeNull();
     }
 
+    [Theory(DisplayName = "Store Twice"), Integration]
+    public async Task StoreTwice(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
+    {
+        // Storing something twice should replace the first one
+        var expected = Guid.NewGuid().ToString();
+        var entity = new Category { Name = "Original name (not expected)" };
+        await subject.Store(entity);
+
+        // Set the name to the new expected value and Store same object again
+        entity.Name = expected;
+        await subject.Store(entity);
+
+        // Verify against separate manually created Session
+        using var session = underlyingStore.OpenSession();
+        var retrieved = session.Load<Category>(entity.Id);
+        retrieved.Should().NotBeNull();
+        retrieved.Name.Should().Be(expected);
+    }
+
     [Theory(DisplayName = "IgnoreChanges: Initial Store"), Integration]
     public async Task IgnoreChanges(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
     {
@@ -104,24 +123,5 @@ public class RavenDbDocumentStorageTest
         using var session2 = underlyingStore.OpenSession();
         var stored = session2.Load<Category>(entity.Id);
         stored.Name.Should().Be(expected);
-    }
-
-    [Theory(DisplayName = "Store Twice"), Integration]
-    public async Task StoreTwice(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
-    {
-        // Storing something twice should replace the first one
-        var expected = Guid.NewGuid().ToString();
-        var entity = new Category { Name = "Original name (not expected)" };
-        await subject.Store(entity);
-
-        // Set the name to the new expected value and Store same object again
-        entity.Name = expected;
-        await subject.Store(entity);
-
-        // Verify against separate manually created Session
-        using var session = underlyingStore.OpenSession();
-        var retrieved = session.Load<Category>(entity.Id);
-        retrieved.Should().NotBeNull();
-        retrieved.Name.Should().Be(expected);
     }
 }

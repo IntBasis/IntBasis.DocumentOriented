@@ -76,4 +76,26 @@ public class MongoDbDocumentStorageTest
 
         retrieved.Should().BeNull();
     }
+
+    [Theory(DisplayName = "Store Twice"), Integration]
+    public async Task StoreTwice(MongoDbDocumentStorage subject, IMongoDatabaseService mongoDatabaseService)
+    {
+        // Storing something twice should replace the first one
+        var expected = Guid.NewGuid().ToString();
+        var entity = new Category(name: "Original name (not expected)");
+        await subject.Store(entity);
+
+        // Set the name to the new expected value and Store same object again
+        entity.Name = expected;
+        await subject.Store(entity);
+
+        // Verify against separate manually created Session
+        var mongoDatabase = mongoDatabaseService.GetDatabase();
+        var collectionName = "categories";
+        var collection = mongoDatabase.GetCollection<Category>(collectionName);
+        var retrieved = collection.Find<Category>(doc => doc.Id == entity.Id)
+                                  .FirstOrDefault();
+        retrieved.Should().NotBeNull();
+        retrieved.Name.Should().Be(expected);
+    }
 }
