@@ -37,6 +37,19 @@ public class MongoDbDocumentStorageTest
         found.Name.Should().Be(name);
     }
 
+    [Theory(DisplayName = "Store w/ given ID"), Integration]
+    public async Task StoreId(MongoDbDocumentStorage subject)
+    {
+        var id = Guid.NewGuid().ToString();
+        const string name = "My own ID test";
+        var stored = new Category(id, name);
+        await subject.Store(stored);
+        stored.Id.Should().Be(id);
+
+        var retrieved = await subject.Retrieve<Category>(id);
+        retrieved.Should().BeEquivalentTo(stored);
+    }
+
     [Theory(DisplayName = "Retrieve"), Integration]
     public async Task Retrieval(MongoDbDocumentStorage subject, IMongoDatabaseService mongoDatabaseService)
     {

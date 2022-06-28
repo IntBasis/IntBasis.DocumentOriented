@@ -25,7 +25,8 @@ public class MongoDbDocumentStorage : IDocumentStorage
     public async Task Store<T>(T entity) where T : IDocumentEntity
     {
         var collection = GetCollection<T>();
-        entity.Id = ObjectId.GenerateNewId().ToString();
+        if (entity.Id is null)
+            entity.Id = ObjectId.GenerateNewId().ToString();
         await collection.InsertOneAsync(entity);
     }
 
