@@ -52,4 +52,14 @@ public class MongoDbDocumentStorageTest
 
         retrieved.Should().BeEquivalentTo(inserted);
     }
+
+    [Theory(DisplayName = "Retrieve Missing"), Integration]
+    public async Task RetrieveNull(MongoDbDocumentStorage subject)
+    {
+        var id = Guid.NewGuid().ToString();
+
+        var retrieved = await subject.Retrieve<Category>(id);
+
+        retrieved.Should().BeNull();
+    }
 }
