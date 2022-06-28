@@ -25,8 +25,9 @@ public class MongoDbDocumentStorageTest
     {
         const string name = "storage test";
         var entity = new Category(name);
+
         await subject.Store(entity);
-        entity.Id.Should().NotBeNull();
+        entity.Id.Should().NotBeNullOrEmpty();
 
         var mongoDatabase = mongoDatabaseService.GetDatabase();
         var collectionName = "categories";
@@ -58,16 +59,16 @@ public class MongoDbDocumentStorageTest
         var collection = mongoDatabase.GetCollection<Category>(collectionName);
         var id = Guid.NewGuid().ToString();
         const string name = "retrieval test";
-        var inserted = new Category(id, name);
-        collection.InsertOne(inserted);
+        var stored = new Category(id, name);
+        collection.InsertOne(stored);
 
         var retrieved = await subject.Retrieve<Category>(id);
 
-        retrieved.Should().BeEquivalentTo(inserted);
+        retrieved.Should().BeEquivalentTo(stored);
     }
 
-    [Theory(DisplayName = "Retrieve Missing"), Integration]
-    public async Task RetrieveNull(MongoDbDocumentStorage subject)
+    [Theory(DisplayName = "Retrieve Missing returns null"), Integration]
+    public async Task Missing(MongoDbDocumentStorage subject)
     {
         var id = Guid.NewGuid().ToString();
 

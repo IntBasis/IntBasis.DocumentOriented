@@ -5,7 +5,7 @@ namespace IntBasis.DocumentOriented.RavenDB.Tests;
 public class RavenDbDocumentStorageTest
 {
     [Theory(DisplayName = "Store"), Integration]
-    public async Task StoreAsync(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
+    public async Task Store(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
     {
         var expected = Guid.NewGuid().ToString();
         var entity = new Category { Name = expected };
@@ -20,29 +20,46 @@ public class RavenDbDocumentStorageTest
         retrieved.Name.Should().Be(expected);
     }
 
+   [Theory(DisplayName = "Store w/ given ID"), Integration]
+    public async Task StoreId(RavenDbDocumentStorage subject)
+    {
+        var id = Guid.NewGuid().ToString();
+        const string name = "My own ID test";
+        var stored = new Category(id, name);
+        await subject.Store(stored);
+        stored.Id.Should().Be(id);
+
+        var retrieved = await subject.Retrieve<Category>(id);
+        retrieved.Should().BeEquivalentTo(stored);
+    }
+
     [Theory(DisplayName = "Retrieve"), Integration]
-    public async Task RetrieveAsync(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
+    public async Task Retrieve(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
     {
         var expected = Guid.NewGuid().ToString();
-        var entity = new Category { Name = expected };
+        var stored = new Category { Name = expected };
         // Store via separate manually created Session
         using var session = underlyingStore.OpenSession();
-        session.Store(entity);
+        session.Store(stored);
         session.SaveChanges();
 
-        var retrieved = await subject.Retrieve<Category>(entity.Id);
-        retrieved.Name.Should().Be(expected);
+        var retrieved = await subject.Retrieve<Category>(stored.Id);
+
+        retrieved.Should().BeEquivalentTo(stored);
     }
 
     [Theory(DisplayName = "Retrieve Missing returns null"), Integration]
     public async Task Missing(RavenDbDocumentStorage subject)
     {
-        var retrieved = await subject.Retrieve<Category>("1");
+        var id = Guid.NewGuid().ToString();
+
+        var retrieved = await subject.Retrieve<Category>(id);
+
         retrieved.Should().BeNull();
     }
 
     [Theory(DisplayName = "IgnoreChanges: Initial Store"), Integration]
-    public async Task IgnoreChangesAsync(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
+    public async Task IgnoreChanges(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
     {
         // RavenDB Sessions automatically track changes for all returned entities
         // We do not want to save changes to Entity A when Entity B is being stored
@@ -63,7 +80,7 @@ public class RavenDbDocumentStorageTest
     }
 
     [Theory(DisplayName = "IgnoreChanges: Retrieved"), Integration]
-    public async Task IgnoreChangesRetrieveAsync(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
+    public async Task IgnoreChangesRetrieve(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
     {
         // RavenDB Sessions automatically track changes for all returned entities
         // We do not want to save changes to Entity A when Entity B is being stored
@@ -90,7 +107,7 @@ public class RavenDbDocumentStorageTest
     }
 
     [Theory(DisplayName = "Store Twice"), Integration]
-    public async Task StoreTwiceAsync(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
+    public async Task StoreTwice(RavenDbDocumentStorage subject, IDocumentStore underlyingStore)
     {
         // Storing something twice should replace the first one
         var expected = Guid.NewGuid().ToString();
