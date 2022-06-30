@@ -20,3 +20,16 @@ C:\RavenDB\run.ps1
 cd 'C:\Program Files\MongoDB\Server\5.3\bin'
 ./mongod --config mongod.cfg
 ```
+
+Cleanly shutting down MongoDB
+
+```ps1
+cd 'C:\Program Files\MongoDB\Server\5.3\bin'
+./mongo
+
+MongoDB shell ...
+
+> use admin
+> db.shutdownServer()
+> quit()
+```
