@@ -11,11 +11,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntBasis.DocumentOriented.R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntBasis.DocumentOriented.RavenDB.Tests", "IntBasis.DocumentOriented.RavenDB.Tests\IntBasis.DocumentOriented.RavenDB.Tests.csproj", "{23468FF7-AFFF-495F-8F82-49101E129B48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.Testing", "IntBasis.DocumentOriented.Testing\IntBasis.DocumentOriented.Testing.csproj", "{18AEEBAD-09E7-4567-B864-1B8B969B8105}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntBasis.DocumentOriented.Testing", "IntBasis.DocumentOriented.Testing\IntBasis.DocumentOriented.Testing.csproj", "{18AEEBAD-09E7-4567-B864-1B8B969B8105}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.MongoDB", "IntBasis.DocumentOriented.MongoDB\IntBasis.DocumentOriented.MongoDB.csproj", "{5D389665-4919-424E-917A-328C876C13E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntBasis.DocumentOriented.MongoDB", "IntBasis.DocumentOriented.MongoDB\IntBasis.DocumentOriented.MongoDB.csproj", "{5D389665-4919-424E-917A-328C876C13E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.MongoDB.Tests", "IntBasis.DocumentOriented.MongoDB.Tests\IntBasis.DocumentOriented.MongoDB.Tests.csproj", "{18336C34-5471-4B45-BC54-66157365EF6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntBasis.DocumentOriented.MongoDB.Tests", "IntBasis.DocumentOriented.MongoDB.Tests\IntBasis.DocumentOriented.MongoDB.Tests.csproj", "{18336C34-5471-4B45-BC54-66157365EF6C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0D65E3F1-B206-41A6-8F91-3BD77B340EEF}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -21,6 +21,7 @@ internal static class RavenDbInitialization
         // and downloads various configurations
         // e.g. cluster topology or client configuration
         store.Initialize();                 
+        // TODO: Create Database if does not exist
         return store;
     }
 
