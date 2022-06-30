@@ -2,21 +2,28 @@
 
 ## Dev Environment (Windows)
 
-Installation requires an elevated admin terminal
+Installation requires an elevated Administrator shell
 
-- [Chocolatey][]
-- RavenDB: `choco install ravendb`
-- MongoDB: `choco install mongodb`
+Install [Chocolatey][]
 
-  [Chocolatey]: https://chocolatey.org/install
+```ps1
+# RavenDB
+choco install ravendb 
+# MongoDB
+choco install mongodb
+# MongoDB Compass Database Explorer (optional)
+choco install mongodb-compass
+```
+
 
 ### Running DB Servers
 
 ```ps1
 C:\RavenDB\run.ps1
 ```
-
+ 
 ```ps1
+# (Requires Administrator)
 cd 'C:\Program Files\MongoDB\Server\5.3\bin'
 ./mongod --config mongod.cfg
 ```
@@ -33,3 +40,5 @@ MongoDB shell ...
 > db.shutdownServer()
 > quit()
 ```
+
+  [Chocolatey]: https://chocolatey.org/install
