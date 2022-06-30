@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>10.0</LangVersion>
     <PackageId>IntBasis.DocumentOriented</PackageId>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <Authors>Jacob Foshee</Authors>
     <Company>intBASIS</Company>
   </PropertyGroup>
