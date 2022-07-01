@@ -24,6 +24,26 @@
                 "${workspaceFolder}/IntBasis.DocumentOriented.Tests/IntBasis.DocumentOriented.Tests.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "MongoDB Server",
+            "command": "mongod",
+            "args": [
+                "--config",
+                "./mongod.cfg"
+            ],
+            "type": "process",
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "RavenDB Server",
+            "windows": {
+                "command": "C:\\RavenDB\\run.ps1"
+            },
+            "type": "shell",
+            "isBackground": true,
+            "problemMatcher": []
         }
     ]
 }
