@@ -5,6 +5,7 @@
         "cref",
         "discoverability",
         "inheritdoc",
+        "mongosh",
         "paramref",
         "ravendb",
         "Xunit"

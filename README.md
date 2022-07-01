@@ -18,27 +18,35 @@ choco install mongodb-compass
 
 ### Running DB Servers
 
+RavenDB (Windows Only)
 ```ps1
 C:\RavenDB\run.ps1
 ```
- 
+
+MongoDB config is available in the source root
+which configures MongoDB to use local .MongoDB folder.
 ```ps1
-# (Requires Administrator)
-cd 'C:\Program Files\MongoDB\Server\5.3\bin'
-./mongod --config mongod.cfg
+mongod --config ./mongod.cfg
 ```
 
-Cleanly shutting down MongoDB
+#### Cleanly shutting down MongoDB
 
+##### Windows
 ```ps1
 cd 'C:\Program Files\MongoDB\Server\5.3\bin'
 ./mongo
+```
 
-MongoDB shell ...
+##### macOS
+```
+mongosh
+```
 
-> use admin
-> db.shutdownServer()
-> quit()
+#### MongoDB shell
+```
+use admin
+db.shutdownServer()
+quit()
 ```
 
   [Chocolatey]: https://chocolatey.org/install

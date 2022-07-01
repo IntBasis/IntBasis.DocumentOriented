@@ -1,0 +1,3 @@
+# Keep this directory for the MongoDB test server, but ignore its contents
+*
+!.gitignore
