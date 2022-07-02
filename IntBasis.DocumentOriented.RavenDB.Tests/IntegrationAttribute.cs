@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace IntBasis.DocumentOriented.RavenDB.Tests;
 
-public class Integration : BaseServiceProviderDataAttribute
+public class IntegrationAttribute : BaseServiceProviderDataAttribute
 {
     RavenDbConfiguration TestConfig => new("Test", "http://127.0.0.1:8080");
 

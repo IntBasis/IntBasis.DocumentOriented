@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace IntBasis.DocumentOriented.MongoDB.Tests;
 
-public class Integration : BaseServiceProviderDataAttribute
+public class IntegrationAttribute : BaseServiceProviderDataAttribute
 {
     MongoDbConfiguration TestConfig => new(connectionString: "mongodb://localhost:27017",
                                            databaseName: "test");
