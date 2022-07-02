@@ -4,6 +4,7 @@
         "choco",
         "cref",
         "discoverability",
+        "Expando",
         "inheritdoc",
         "mongosh",
         "paramref",
