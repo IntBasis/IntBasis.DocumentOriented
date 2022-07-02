@@ -2,16 +2,23 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-	<LangVersion>10.0</LangVersion>
-	<Nullable>enable</Nullable>
+	  <LangVersion>10.0</LangVersion>
+	  <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />
     <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
-	<!-- Explicit reference to Castle.Core to work around old issue of referencing System.ComponentModel.TypeConverter >= 4.0.1 -->
+	  <!-- Explicit reference to Castle.Core to work around old issue of referencing System.ComponentModel.TypeConverter >= 4.0.1 -->
     <PackageReference Include="Castle.Core" Version="4.4.1" />
+    <PackageReference Include="FluentAssertions" Version="6.7.0" />
+    <!-- Reference Microsoft.CSharp for dynamic support -->
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IntBasis.DocumentOriented\IntBasis.DocumentOriented.csproj" />
   </ItemGroup>
 
 </Project>
