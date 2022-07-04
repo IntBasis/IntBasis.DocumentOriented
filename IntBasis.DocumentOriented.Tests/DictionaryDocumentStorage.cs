@@ -5,12 +5,12 @@ public class DictionaryDocumentStorage : IDocumentStorage
     internal readonly Dictionary<string, IDocumentEntity> dictionary = new();
     private int nextId = 999;
 
-    public Task<T> Retrieve<T>(string id) where T : IDocumentEntity
+    public Task<T?> Retrieve<T>(string id) where T : IDocumentEntity
     {
         if (!dictionary.ContainsKey(id))
             return Task.FromResult(default(T));
         var entity = (T)dictionary[id];
-        return Task.FromResult(entity);
+        return Task.FromResult<T?>(entity);
     }
 
     public Task Store<T>(T entity) where T : IDocumentEntity

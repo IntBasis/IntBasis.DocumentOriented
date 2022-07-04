@@ -21,5 +21,5 @@ public interface IDocumentStorage
     /// <para/>
     /// Returns null if the entity is not found.
     /// </summary>
-    Task<T> Retrieve<T>(string id) where T : IDocumentEntity;
+    Task<T?> Retrieve<T>(string id) where T : IDocumentEntity;
 }

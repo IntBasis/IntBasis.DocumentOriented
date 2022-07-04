@@ -8,6 +8,8 @@ public interface IDocumentEntity
 {
     /// <summary>
     /// Entity ID (unique string)
+    /// <para/>
+    /// The ID may be null before it has been stored. After the entity has been stored the ID must not be null.
     /// </summary>
-    public string Id { get; set; }
+    public string? Id { get; set; }
 }

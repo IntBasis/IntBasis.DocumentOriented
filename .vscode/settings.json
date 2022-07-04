@@ -9,6 +9,7 @@
         "mongosh",
         "paramref",
         "ravendb",
+        "typeparam",
         "Xunit"
     ]
 }

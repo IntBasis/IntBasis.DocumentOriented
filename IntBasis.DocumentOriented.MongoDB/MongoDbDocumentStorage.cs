@@ -14,7 +14,7 @@ public class MongoDbDocumentStorage : IDocumentStorage
     }
 
     /// <inheritdoc/>
-    public async Task<T> Retrieve<T>(string id) where T : IDocumentEntity
+    public async Task<T?> Retrieve<T>(string id) where T : IDocumentEntity
     {
         var collection = GetCollection<T>();
         var find = collection.Find<T>(document => document.Id == id);

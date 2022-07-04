@@ -7,7 +7,7 @@ namespace IntBasis.DocumentOriented.Testing;
 public class HasDynamic : IDocumentEntity
 {
     public string? Id { get; set; }
-    public dynamic? Metadata { get; set; } = new ExpandoObject();
+    public dynamic Metadata { get; set; } = new ExpandoObject();
 }
 
 public static class CommonDocumentStorageTest
@@ -26,14 +26,18 @@ public static class CommonDocumentStorageTest
 
         await subject.Store(entity);
         entity.Id.Should().NotBeNull();
-        var retrieved = await subject.Retrieve<HasDynamic>(entity.Id);
+        var retrieved = await subject.Retrieve<HasDynamic>(entity.Id!);
 
-        ((string?)retrieved.Metadata?.Location).Should().Be("Houston");
+        retrieved!.Should().NotBeNull();
+        ((object)retrieved!.Metadata)!.Should().NotBeNull();
+        ((string?)retrieved.Metadata.Location).Should().Be("Houston");
 
         retrieved.Metadata.Value = 42;
         await subject.Store(retrieved);
-        var retrieved2 = await subject.Retrieve<HasDynamic>(entity.Id);
+        var retrieved2 = await subject.Retrieve<HasDynamic>(entity.Id!);
 
+        retrieved2!.Should().NotBeNull();
+        ((object)retrieved2!.Metadata)!.Should().NotBeNull();
         ((string?)retrieved2.Metadata?.Location).Should().Be("Houston");
         ((int?)retrieved2.Metadata?.Value).Should().Be(42);
     }

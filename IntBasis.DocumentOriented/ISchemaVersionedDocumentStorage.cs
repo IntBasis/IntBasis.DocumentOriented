@@ -3,36 +3,6 @@ using System.Threading.Tasks;
 
 namespace IntBasis.DocumentOriented;
 
-/// <summary>
-/// Encapsulates the result of retrieving an entity from <see cref="ISchemaVersionedDocumentStorage"/>
-/// so that the caller can both have an immediate response and refreshed response (when needed).
-/// </summary>
-/// <typeparam name="T">The Entity type</typeparam>
-public class SchemaVersionedRetrieval<T> where T : ISchemaVersionedDocumentEntity
-{
-    /// <summary>
-    /// The entity that was retrieved from document storage.
-    /// <para/>
-    /// It may have been stored with an older Schema Version, so <see cref="IsStale"/> should be checked.
-    /// </summary>
-    public T Entity { get; init; }
-
-    /// <summary>
-    /// True if the retrieved <see cref="Entity"/> was stored with an older Schema Version.
-    /// </summary>
-    public bool IsStale { get; init; }
-
-    /// <summary>
-    /// Returns the Entity with the Current Schema Version.
-    /// <para/>
-    /// For stale entity this Task will return the result of the refresh operation (which should have current schema version).
-    /// This may be a long-running operation.
-    /// <para/>
-    /// For non-stale entities it will return the same object as <see cref="Entity"/>.
-    /// </summary>
-    public Task<T> CurrentVersionEntity { get; init; }
-}
-
 public interface ISchemaVersionedDocumentStorage
 {
     /// <summary>
