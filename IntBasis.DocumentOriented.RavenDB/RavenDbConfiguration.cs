@@ -14,6 +14,11 @@ public class RavenDbConfiguration
     /// </summary>
     public string[] ServerUrls { get; set; }
 
+    // Configuration Binder requires parameterless constructor
+    public RavenDbConfiguration()
+    {        
+    }
+
     public RavenDbConfiguration(string databaseName, params string[] serverUrls)
     {
         DatabaseName = databaseName ?? throw new ArgumentNullException(nameof(databaseName));

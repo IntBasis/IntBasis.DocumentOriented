@@ -15,6 +15,8 @@ internal class MongoDatabaseService : IMongoDatabaseService
     public IMongoDatabase GetDatabase()
     {
         var client = new MongoClient(config.ConnectionString);
+        // TODO: Sanitize DB name for Mongo requirements
+        //       "Database names must be non-empty and not contain '.' or the null character."
         return client.GetDatabase(config.DatabaseName);
     }
 }

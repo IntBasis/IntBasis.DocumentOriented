@@ -51,6 +51,7 @@ quit()
 
 ## To Do
 
-- [ ] `dynamic` member support
+- [x] Verify `dynamic` member support
+- [ ] Enable nullable.  Retrieve should return Task<T?>
 
   [Chocolatey]: https://chocolatey.org/install

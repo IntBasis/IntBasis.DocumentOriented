@@ -13,6 +13,9 @@ public class RavenDbDocumentStorage : IDocumentStorage
         this.documentSession = documentSession ?? throw new ArgumentNullException(nameof(documentSession));
     }
 
+    // TODO: Sanitize the ID to prevent unexpected behavior: 
+    //       https://ravendb.net/docs/article-page/5.3/csharp/server/kb/document-identifier-generation#document-ids---limitations
+
     /// <inheritdoc/>
     public async Task<T> Retrieve<T>(string id) where T : IDocumentEntity
     {
