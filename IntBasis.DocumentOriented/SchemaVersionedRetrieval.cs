@@ -12,9 +12,11 @@ public class SchemaVersionedRetrieval<TEntity> where TEntity : ISchemaVersionedD
     /// <summary>
     /// The entity that was retrieved from document storage.
     /// <para/>
+    /// May be null if the entity was not found in storage.
+    /// <para/>
     /// It may have been stored with an older Schema Version, so <see cref="IsStale"/> should be checked.
     /// </summary>
-    public TEntity Entity { get; init; }
+    public TEntity? Entity { get; init; }
 
     /// <summary>
     /// True if the retrieved <see cref="Entity"/> was stored with an older Schema Version.
@@ -31,7 +33,7 @@ public class SchemaVersionedRetrieval<TEntity> where TEntity : ISchemaVersionedD
     /// </summary>
     public Task<TEntity> CurrentVersionEntity { get; init; }
 
-    public SchemaVersionedRetrieval(TEntity entity, bool isStale, Task<TEntity> currentVersionEntity)
+    public SchemaVersionedRetrieval(TEntity? entity, bool isStale, Task<TEntity> currentVersionEntity)
     {
         Entity = entity;
         IsStale = isStale;

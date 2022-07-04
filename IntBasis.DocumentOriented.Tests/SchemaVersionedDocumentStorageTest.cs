@@ -42,9 +42,9 @@ public class SchemaVersionedDocumentStorageTest
                      .WithMessage("*schema version*");
     }
 
-    [Theory(DisplayName = "Basic Request"), DictionaryStorage]
-    public async Task BasicRequest(DictionarySchemaVersionService schemaVersionService,
-                                   SchemaVersionedDocumentStorage subject)
+    [Theory(DisplayName = "Basic Retrieval"), DictionaryStorage]
+    public async Task BasicRetrieve(DictionarySchemaVersionService schemaVersionService,
+                                    SchemaVersionedDocumentStorage subject)
     {
         // The stored entity is up-to-date with current schema version
         var id = "11";
@@ -59,10 +59,10 @@ public class SchemaVersionedDocumentStorageTest
         (await retrieval.CurrentVersionEntity).Should().Be(entity);
     }
 
-    [Theory(DisplayName = "Stale Request"), DictionaryStorage]
-    public async Task StaleRequest(DictionarySchemaVersionService schemaVersionService,
-                                   DictionaryDocumentStorage documentStorage,
-                                   SchemaVersionedDocumentStorage subject)
+    [Theory(DisplayName = "Stale Retrieval"), DictionaryStorage]
+    public async Task StaleRetrieve(DictionarySchemaVersionService schemaVersionService,
+                                    DictionaryDocumentStorage documentStorage,
+                                    SchemaVersionedDocumentStorage subject)
     {
         // The stored entity has an old schema version
         var id = "11";
@@ -74,6 +74,21 @@ public class SchemaVersionedDocumentStorageTest
         var retrieval = await subject.Retrieve(id, () => Task.FromResult(refreshedEntity));
 
         retrieval.Entity.Should().Be(entity);
+        retrieval.IsStale.Should().BeTrue();
+        (await retrieval.CurrentVersionEntity).Should().Be(refreshedEntity);
+        documentStorage.dictionary[id].Should().Be(refreshedEntity);
+    }
+
+    [Theory(DisplayName = "Missing Retrieval"), DictionaryStorage]
+    public async Task Missing(DictionaryDocumentStorage documentStorage,
+                              SchemaVersionedDocumentStorage subject)
+    {
+        var id = "88";
+        var refreshedEntity = new VersionedEntity(schemaVersion: 2, id: id, value: "v2");
+
+        var retrieval = await subject.Retrieve(id, () => Task.FromResult(refreshedEntity));
+
+        retrieval.Entity.Should().BeNull();
         retrieval.IsStale.Should().BeTrue();
         (await retrieval.CurrentVersionEntity).Should().Be(refreshedEntity);
         documentStorage.dictionary[id].Should().Be(refreshedEntity);
