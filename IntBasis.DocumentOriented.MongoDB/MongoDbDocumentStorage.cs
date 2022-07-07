@@ -1,22 +1,21 @@
-﻿using Humanizer;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace IntBasis.DocumentOriented.MongoDB;
 
 public class MongoDbDocumentStorage : IDocumentStorage
 {
-    private readonly IMongoDatabaseService mongoDatabaseService;
+    private readonly IMongoCollectionService mongoCollectionService;
 
-    public MongoDbDocumentStorage(IMongoDatabaseService mongoDatabaseService)
+    public MongoDbDocumentStorage(IMongoCollectionService mongoCollectionService)
     {
-        this.mongoDatabaseService = mongoDatabaseService;
+        this.mongoCollectionService = mongoCollectionService;
     }
 
     /// <inheritdoc/>
     public async Task<T?> Retrieve<T>(string id) where T : IDocumentEntity
     {
-        var collection = GetCollection<T>();
+        var collection = mongoCollectionService.GetCollection<T>();
         var find = collection.Find<T>(document => document.Id == id);
         return await find.FirstOrDefaultAsync();
     }
@@ -24,7 +23,7 @@ public class MongoDbDocumentStorage : IDocumentStorage
     /// <inheritdoc/>
     public async Task Store<T>(T entity) where T : IDocumentEntity
     {
-        var collection = GetCollection<T>();
+        var collection = mongoCollectionService.GetCollection<T>();
         if (entity.Id is null)
             entity.Id = ObjectId.GenerateNewId().ToString();
         await Save(collection, entity);
@@ -40,22 +39,5 @@ public class MongoDbDocumentStorage : IDocumentStorage
                                                                 new ReplaceOptions { IsUpsert = true });
         // You can look at ReplaceOneResult.MatchedCount to see whether it was an insert or update.
         return replaceOneResult;
-    }
-
-    private IMongoCollection<T> GetCollection<T>() where T : IDocumentEntity
-    {
-        var mongoDatabase = mongoDatabaseService.GetDatabase();
-        var collectionName = GetCollectionName<T>();
-        return mongoDatabase.GetCollection<T>(collectionName);
-    }
-
-    internal static string GetCollectionName<T>()
-    {
-        // https://stackoverflow.com/a/45335909/483776
-        // By convention collection names are plural of the type
-        var typeName = typeof(T).Name;
-        var plural = typeName.Pluralize();
-        // And are lower-cased
-        return plural.ToLowerInvariant();
     }
 }

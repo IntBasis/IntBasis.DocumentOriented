@@ -18,6 +18,7 @@ public static class ServiceCollectionExtensions
     /// Internal:
     /// <list type="bullet">
     /// <item> <see cref="IMongoDatabaseService"/> </item>
+    /// <item> <see cref="IMongoCollectionService"/> </item>
     /// </list>
     /// </summary>
     public static IServiceCollection AddDocumentOrientedMongoDb(this IServiceCollection services,
@@ -26,6 +27,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(configuration);
         services.AddTransient<IDocumentStorage, MongoDbDocumentStorage>();
         services.AddTransient<IMongoDatabaseService, MongoDatabaseService>();
+        services.AddTransient<IMongoCollectionService, MongoCollectionService>();
         return services;
     }
 }
