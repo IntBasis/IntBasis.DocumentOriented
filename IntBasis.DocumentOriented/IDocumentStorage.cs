@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace IntBasis.DocumentOriented;
+﻿namespace IntBasis.DocumentOriented;
 
 /// <summary>
 /// Encapsulates the simple storage and retrieval of individual document entities by Id.

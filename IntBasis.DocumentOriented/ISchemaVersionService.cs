@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace IntBasis.DocumentOriented;
+﻿namespace IntBasis.DocumentOriented;
 
 /// <summary>
 /// Responsible for supplying the Schema Version for given types.

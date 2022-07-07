@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace IntBasis.DocumentOriented;
+﻿namespace IntBasis.DocumentOriented;
 
 public interface ISchemaVersionedDocumentStorage
 {
