@@ -52,6 +52,7 @@ quit()
 ## To Do
 
 - [x] Verify `dynamic` member support
-- [ ] Enable nullable.  Retrieve should return Task<T?>
+- [x] Enable nullable.  Retrieve should return Task<T?>
+- [ ] Add dual license like <https://sixlabors.com/posts/license-changes/>
 
   [Chocolatey]: https://chocolatey.org/install
