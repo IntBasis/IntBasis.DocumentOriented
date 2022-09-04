@@ -100,10 +100,4 @@ public class MongoDbDocumentStorageTest
         retrieved.Should().NotBeNull();
         retrieved.Name.Should().Be(expected);
     }
-
-    [Theory(DisplayName = "Store Dynamic"), Integration]
-    public async Task StoreDynamic(MongoDbDocumentStorage subject)
-    {
-        await CommonDocumentStorageTest.VerifyDynamicObjectStorage(subject);
-    }
 }

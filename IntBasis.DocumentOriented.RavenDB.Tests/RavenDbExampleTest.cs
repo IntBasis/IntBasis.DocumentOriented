@@ -123,9 +123,4 @@ public class RavenDbExampleTest
         session.SaveChanges();
     }
 
-    [Theory(DisplayName = "Store Dynamic"), Integration]
-    public async Task StoreDynamic(RavenDbDocumentStorage subject)
-    {
-        await CommonDocumentStorageTest.VerifyDynamicObjectStorage(subject);
-    }
 }

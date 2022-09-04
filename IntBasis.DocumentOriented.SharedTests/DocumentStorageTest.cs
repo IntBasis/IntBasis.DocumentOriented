@@ -1,16 +1,21 @@
-using System.Dynamic;
+﻿using System.Dynamic;
 
-namespace IntBasis.DocumentOriented.Testing;
+#if MONGO_DB
+namespace IntBasis.DocumentOriented.MongoDB.Tests;
+#else
+namespace IntBasis.DocumentOriented.RavenDB.Tests;
+#endif
 
-public class HasDynamic : IDocumentEntity
+public class DocumentStorageTest
 {
-    public string? Id { get; set; }
-    public dynamic Metadata { get; set; } = new ExpandoObject();
-}
+    class HasDynamic : IDocumentEntity
+    {
+        public string? Id { get; set; }
+        public dynamic Metadata { get; set; } = new ExpandoObject();
+    }
 
-public static class CommonDocumentStorageTest
-{
-    public static async Task VerifyDynamicObjectStorage(IDocumentStorage subject)
+    [Theory(DisplayName = "Store Dynamic"), Integration]
+    public async Task StoreDynamic(IDocumentStorage subject)
     {
         var entity = new HasDynamic
         {
