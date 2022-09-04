@@ -47,8 +47,8 @@ public class RavenDbExampleTest
     //    store.Maintenance.Server.Send<DatabasePutResult>(createOperation);
     //}
 
-    RavenDbConfiguration TestConfig => new("Test", "http://127.0.0.1:8080");
-    IDocumentStore DocumentStore() => RavenDbInitialization.InitializeDocumentStore(TestConfig);
+    static RavenDbConfiguration TestConfig => new("Test", "http://127.0.0.1:8080");
+    static IDocumentStore DocumentStore() => RavenDbInitialization.InitializeDocumentStore(TestConfig);
 
     [Theory(DisplayName = "RavenDB Store"), Integration]
     public void Storage(IDocumentSession session)

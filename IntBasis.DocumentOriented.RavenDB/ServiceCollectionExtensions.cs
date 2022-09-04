@@ -14,6 +14,7 @@ public static class ServiceCollectionExtensions
     /// External:
     /// <list type="bullet">
     /// <item> <see cref="IDocumentStorage"/> </item>
+    /// <item> <see cref="IDocumentChanges"/> </item>
     /// </list>
     /// <para/>
     /// Internal:
@@ -27,6 +28,7 @@ public static class ServiceCollectionExtensions
                                                                 RavenDbConfiguration configuration)
     {
         services.AddTransient<IDocumentStorage, RavenDbDocumentStorage>();
+        services.AddTransient<IDocumentChanges, RavenDbDocumentChanges>();
         // A single instance of the Document Store (Singleton Pattern)
         // should be created per cluster per the lifetime of your application.
         // See https://ravendb.net/docs/article-page/5.3/csharp/client-api/what-is-a-document-store
