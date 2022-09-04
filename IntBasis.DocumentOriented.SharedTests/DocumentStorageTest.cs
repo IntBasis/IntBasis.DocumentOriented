@@ -24,6 +24,19 @@ public class Category : IDocumentEntity
 
 public class DocumentStorageTest
 {
+    [Theory(DisplayName = "Store/Retrieve auto-generated ID"), Integration]
+    public async Task StoreAutoId(IDocumentStorage subject)
+    {
+        const string name = "Expected Name";
+        var entity = new Category(name);
+
+        await subject.Store(entity);
+        entity.Id.Should().NotBeNullOrEmpty();
+
+        var retrieved = await subject.Retrieve<Category>(entity.Id!);
+        retrieved.Should().BeEquivalentTo(entity);
+    }
+
     [Theory(DisplayName = "Store w/ given ID"), Integration]
     public async Task StoreId(IDocumentStorage subject)
     {
@@ -64,24 +77,23 @@ public class DocumentStorageTest
                 Location = "Houston"
             }
         };
-        // entity.Metadata.Value = 42;
-        ((string)entity.Metadata.Location).Should().Be("Houston");
+        Assert.Equal("Houston", entity.Metadata.Location);
 
         await subject.Store(entity);
         entity.Id.Should().NotBeNull();
         var retrieved = await subject.Retrieve<HasDynamic>(entity.Id!);
 
         retrieved!.Should().NotBeNull();
-        ((object)retrieved!.Metadata)!.Should().NotBeNull();
-        ((string?)retrieved.Metadata.Location).Should().Be("Houston");
+        Assert.NotNull(retrieved!.Metadata);
+        Assert.Equal("Houston", retrieved.Metadata.Location);
 
         retrieved.Metadata.Value = 42;
         await subject.Store(retrieved);
         var retrieved2 = await subject.Retrieve<HasDynamic>(entity.Id!);
 
         retrieved2!.Should().NotBeNull();
-        ((object)retrieved2!.Metadata)!.Should().NotBeNull();
-        ((string?)retrieved2.Metadata?.Location).Should().Be("Houston");
-        ((int?)retrieved2.Metadata?.Value).Should().Be(42);
+        Assert.NotNull(retrieved2!.Metadata);
+        Assert.Equal("Houston", retrieved2.Metadata.Location);
+        Assert.Equal(42, retrieved2.Metadata.Value);
     }
 }
