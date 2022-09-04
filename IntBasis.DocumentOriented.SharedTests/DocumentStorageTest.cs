@@ -6,8 +6,48 @@ namespace IntBasis.DocumentOriented.MongoDB.Tests;
 namespace IntBasis.DocumentOriented.RavenDB.Tests;
 #endif
 
+public class Category : IDocumentEntity
+{
+    public string? Id { get; set; }
+    public string? Name { get; set; }
+
+    public Category(string name)
+    {
+        Name = name;
+    }
+
+    internal Category(string? id, string name) : this(name)
+    {
+        Id = id;
+    }
+}
+
 public class DocumentStorageTest
 {
+    [Theory(DisplayName = "Store w/ given ID"), Integration]
+    public async Task StoreId(IDocumentStorage subject)
+    {
+        var id = Guid.NewGuid().ToString();
+        const string name = "My own ID test";
+        var stored = new Category(id, name);
+
+        await subject.Store(stored);
+        stored.Id.Should().Be(id);
+
+        var retrieved = await subject.Retrieve<Category>(id);
+        retrieved.Should().BeEquivalentTo(stored);
+    }
+
+    [Theory(DisplayName = "Retrieve Missing returns null"), Integration]
+    public async Task Missing(IDocumentStorage subject)
+    {
+        var id = Guid.NewGuid().ToString();
+
+        var retrieved = await subject.Retrieve<Category>(id);
+
+        retrieved.Should().BeNull();
+    }
+
     class HasDynamic : IDocumentEntity
     {
         public string? Id { get; set; }

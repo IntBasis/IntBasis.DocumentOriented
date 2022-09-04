@@ -1,24 +1,6 @@
-using System.Dynamic;
-using IntBasis.DocumentOriented.Testing;
 using MongoDB.Driver;
 
 namespace IntBasis.DocumentOriented.MongoDB.Tests;
-
-class Category : IDocumentEntity
-{
-    public string? Id { get; set; }
-    public string? Name { get; set; }
-
-    public Category(string name)
-    {
-        Name = name;
-    }
-
-    internal Category(string? id, string name) : this(name)
-    {
-        Id = id;
-    }
-}
 
 public class MongoDbDocumentStorageTest
 {
@@ -40,19 +22,6 @@ public class MongoDbDocumentStorageTest
         found.Name.Should().Be(name);
     }
 
-    [Theory(DisplayName = "Store w/ given ID"), Integration]
-    public async Task StoreId(MongoDbDocumentStorage subject)
-    {
-        var id = Guid.NewGuid().ToString();
-        const string name = "My own ID test";
-        var stored = new Category(id, name);
-        await subject.Store(stored);
-        stored.Id.Should().Be(id);
-
-        var retrieved = await subject.Retrieve<Category>(id);
-        retrieved.Should().BeEquivalentTo(stored);
-    }
-
     [Theory(DisplayName = "Retrieve"), Integration]
     public async Task Retrieval(MongoDbDocumentStorage subject, IMongoDatabaseService mongoDatabaseService)
     {
@@ -67,16 +36,6 @@ public class MongoDbDocumentStorageTest
         var retrieved = await subject.Retrieve<Category>(id);
 
         retrieved.Should().BeEquivalentTo(stored);
-    }
-
-    [Theory(DisplayName = "Retrieve Missing returns null"), Integration]
-    public async Task Missing(MongoDbDocumentStorage subject)
-    {
-        var id = Guid.NewGuid().ToString();
-
-        var retrieved = await subject.Retrieve<Category>(id);
-
-        retrieved.Should().BeNull();
     }
 
     [Theory(DisplayName = "Store Twice"), Integration]

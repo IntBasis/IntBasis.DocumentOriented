@@ -1,32 +1,7 @@
-using System.Dynamic;
-using IntBasis.DocumentOriented.Testing;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Session;
-using Raven.Client.ServerWide;
-using Raven.Client.ServerWide.Operations;
 
 namespace IntBasis.DocumentOriented.RavenDB.Tests;
-
-//public record Category(string? Id = null) : IDocumentEntity
-//{
-//    public string? Name { get; set; }
-//}
-
-class Category : IDocumentEntity
-{
-    public string? Id { get; set; }
-    public string? Name { get; internal set; }
-
-    public Category()
-    {
-    }
-
-    public Category(string? id, string? name)
-    {
-        Id = id;
-        Name = name;
-    }
-}
 
 class Product : IDocumentEntity
 {
@@ -53,10 +28,7 @@ public class RavenDbExampleTest
     [Theory(DisplayName = "RavenDB Store"), Integration]
     public void Storage(IDocumentSession session)
     {
-        var category = new Category
-        {
-            Name = "Test Database Category"
-        };
+        var category = new Category("Test Database Category");
         session.Store(category);
         // Assign an 'Id' and collection (Categories)
         // and start tracking an entity
@@ -79,10 +51,7 @@ public class RavenDbExampleTest
     [Theory(DisplayName = "RavenDB Async Session"), Integration]
     public async Task AsyncStorage(IAsyncDocumentSession session1, IAsyncDocumentSession session2)
     {
-        var category = new Category
-        {
-            Name = "Test Async Category"
-        };
+        var category = new Category("Test Async Category");
         await session1.StoreAsync(category);
         category.Id.Should().NotBeNullOrEmpty();
         await session1.SaveChangesAsync();
