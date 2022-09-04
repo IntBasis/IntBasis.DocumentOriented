@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace IntBasis.DocumentOriented.Testing;
+﻿namespace IntBasis.DocumentOriented.Testing;
 
 public static class TypeExtensions
 {
