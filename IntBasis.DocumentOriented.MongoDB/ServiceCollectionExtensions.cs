@@ -12,6 +12,7 @@ public static class ServiceCollectionExtensions
     /// <para/>
     /// External:
     /// <list type="bullet">
+    /// <item> <see cref="IDocumentChanges"/> </item>
     /// <item> <see cref="IDocumentStorage"/> </item>
     /// <item> <see cref="IDocumentQuery"/> </item>
     /// </list>
@@ -26,6 +27,7 @@ public static class ServiceCollectionExtensions
                                                                 MongoDbConfiguration configuration)
     {
         services.AddSingleton(configuration);
+        services.AddTransient<IDocumentChanges, MongoDbDocumentChanges>();
         services.AddTransient<IDocumentStorage, MongoDbDocumentStorage>();
         services.AddTransient<IDocumentQuery, MongoDbDocumentQuery>();
         services.AddTransient<IMongoDatabaseService, MongoDatabaseService>();

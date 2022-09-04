@@ -44,6 +44,27 @@
             "type": "shell",
             "isBackground": true,
             "problemMatcher": []
+        },
+        {
+            "label": "MongoDB Shell",
+            "windows": {
+                "command": "mongo",
+                "options": {
+                    "cwd": "C:\\Program Files\\MongoDB\\Server\\5.3\\bin"
+                }
+            },
+            "osx": {
+                "command": "mongosh"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
         }
     ]
 }
