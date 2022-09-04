@@ -1,31 +1,39 @@
+﻿#if MONGO_DB
 namespace IntBasis.DocumentOriented.MongoDB.Tests;
+#else
+namespace IntBasis.DocumentOriented.RavenDB.Tests;
+#endif
 
-public class MongoDbDocumentQueryTest
+public class DocumentQueryTest
 {
     [Theory(DisplayName = "Empty collection query"), Integration]
-    public async Task Empty(MongoDbDocumentQuery subject)
+    public async Task Empty(IDocumentQuery subject)
     {
         var result = await subject.Where<Category>(c => c.Name == "none");
         result.Should().BeEmpty();
     }
 
     [Theory(DisplayName = "Collection one item"), Integration]
-    public async Task OneItem(IDocumentStorage documentStorage, MongoDbDocumentQuery subject)
+    public async Task OneItem(IDocumentStorage documentStorage, IDocumentQuery subject)
     {
         var name = Guid.NewGuid().ToString();
         var entity = new Category(name);
         await documentStorage.Store(entity);
 
+        // HACK: In some cases the item is not available yet (read after write)
+        await Task.Delay(100);
+
         var one = await subject.Where<Category>(c => c.Name == name);
         one.Should().HaveCount(1);
         one[0].Should().BeEquivalentTo(entity);
 
-        var zero = await subject.Where<Category>(c => c.Name == name + "_");
+        var wrongName = name + "_";
+        var zero = await subject.Where<Category>(c => c.Name == wrongName);
         zero.Should().BeEmpty();
     }
 
     [Theory(DisplayName = "Collection two items"), Integration]
-    public async Task TwoItems(IDocumentStorage documentStorage, MongoDbDocumentQuery subject)
+    public async Task TwoItems(IDocumentStorage documentStorage, IDocumentQuery subject)
     {
         var prefix = Guid.NewGuid().ToString();
         await documentStorage.Store(new Category(prefix + "1"));

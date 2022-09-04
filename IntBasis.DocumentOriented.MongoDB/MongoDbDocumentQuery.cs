@@ -15,7 +15,8 @@ public class MongoDbDocumentQuery : IDocumentQuery
     public async Task<List<T>> Where<T>(Expression<Func<T, bool>> predicate) where T : IDocumentEntity
     {
         var collection = mongoCollectionService.GetCollection<T>();
-        var queryable = collection.AsQueryable<T>();
-        return await queryable.Where(predicate).ToListAsync();
+        return await collection.AsQueryable<T>()
+                               .Where(predicate)
+                               .ToListAsync();
     }
 }
