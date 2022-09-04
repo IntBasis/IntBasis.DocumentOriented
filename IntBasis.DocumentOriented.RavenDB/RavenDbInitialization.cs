@@ -1,7 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Raven.Client.Documents;
-using Raven.Client.Documents.Session;
-using System;
 
 namespace IntBasis.DocumentOriented.RavenDB;
 

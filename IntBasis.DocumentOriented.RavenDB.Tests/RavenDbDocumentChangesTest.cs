@@ -82,5 +82,3 @@ public class RavenDbDocumentChangesTest
         invoked.Should().BeFalse();
     }
 }
-
-//- [Change Streams] (https://mongodb.github.io/mongo-csharp-driver/2.9/reference/driver/change_streams/)

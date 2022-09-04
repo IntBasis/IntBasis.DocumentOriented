@@ -1,8 +1,4 @@
-﻿using Raven.Client.Documents.Session;
-using System;
-using System.Threading.Tasks;
-
-namespace IntBasis.DocumentOriented.RavenDB;
+﻿namespace IntBasis.DocumentOriented.RavenDB;
 
 public class RavenDbDocumentStorage : IDocumentStorage
 {

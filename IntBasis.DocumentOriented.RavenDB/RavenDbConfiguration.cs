@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace IntBasis.DocumentOriented.RavenDB;
+﻿namespace IntBasis.DocumentOriented.RavenDB;
 
 public class RavenDbConfiguration
 {

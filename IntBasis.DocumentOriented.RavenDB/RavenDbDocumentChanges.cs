@@ -1,9 +1,4 @@
-﻿using Raven.Client.Documents;
-using System;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
-
-namespace IntBasis.DocumentOriented.RavenDB;
+﻿namespace IntBasis.DocumentOriented.RavenDB;
 
 public class RavenDbDocumentChanges : IDocumentChanges
 {
