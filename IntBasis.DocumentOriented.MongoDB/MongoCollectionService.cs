@@ -1,5 +1,4 @@
 using Humanizer;
-using MongoDB.Driver;
 
 namespace IntBasis.DocumentOriented.MongoDB;
 

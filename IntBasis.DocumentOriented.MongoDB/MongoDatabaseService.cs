@@ -1,10 +1,8 @@
-using MongoDB.Driver;
-
 namespace IntBasis.DocumentOriented.MongoDB;
 
 internal class MongoDatabaseService : IMongoDatabaseService
 {
-    MongoDbConfiguration config;
+    private readonly MongoDbConfiguration config;
 
     public MongoDatabaseService(MongoDbConfiguration config)
     {
