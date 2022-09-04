@@ -26,4 +26,6 @@
     <ProjectReference Include="..\IntBasis.DocumentOriented.Testing\IntBasis.DocumentOriented.Testing.csproj" />
   </ItemGroup>
 
+  <Import Project="..\IntBasis.DocumentOriented.SharedTests\IntBasis.DocumentOriented.SharedTests.projitems" Label="Shared" />
+
 </Project>

@@ -1,6 +1,10 @@
-﻿namespace IntBasis.DocumentOriented.MongoDB.Tests;
+﻿#if MONGO_DB
+namespace IntBasis.DocumentOriented.MongoDB.Tests;
+#else
+namespace IntBasis.DocumentOriented.RavenDB.Tests;
+#endif
 
-public class MongoDbDocumentChangesTest
+public class DocumentChangesTest
 {
     // Separate entity type for change tests so we don't pick up changes from other collections
     class TestBook : IDocumentEntity
@@ -61,7 +65,7 @@ public class MongoDbDocumentChangesTest
             await documentStorage.Store(entity);
         }
 
-        await Task.Delay(500);
+        await Task.Delay(600);
         invoked.Should().Be(5);
     }
 

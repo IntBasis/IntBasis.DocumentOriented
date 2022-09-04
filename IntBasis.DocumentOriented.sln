@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "IntBasis.DocumentOriented.SharedTests", "IntBasis.DocumentOriented.SharedTests\IntBasis.DocumentOriented.SharedTests.shproj", "{35D8E8AB-07E0-430D-8A7A-54C2A93C2FD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,5 +65,10 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EF35CB0A-D94E-481F-B6AA-C271B7B97C93}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		IntBasis.DocumentOriented.SharedTests\IntBasis.DocumentOriented.SharedTests.projitems*{18336c34-5471-4b45-bc54-66157365ef6c}*SharedItemsImports = 5
+		IntBasis.DocumentOriented.SharedTests\IntBasis.DocumentOriented.SharedTests.projitems*{23468ff7-afff-495f-8f82-49101e129b48}*SharedItemsImports = 5
+		IntBasis.DocumentOriented.SharedTests\IntBasis.DocumentOriented.SharedTests.projitems*{35d8e8ab-07e0-430d-8a7a-54c2a93c2fd7}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

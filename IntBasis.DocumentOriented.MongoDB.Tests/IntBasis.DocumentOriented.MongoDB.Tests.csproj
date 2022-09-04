@@ -8,6 +8,14 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>MONGO_DB</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>MONGO_DB</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
@@ -26,5 +34,7 @@
     <ProjectReference Include="..\IntBasis.DocumentOriented.MongoDB\IntBasis.DocumentOriented.MongoDB.csproj" />
     <ProjectReference Include="..\IntBasis.DocumentOriented.Testing\IntBasis.DocumentOriented.Testing.csproj" />
   </ItemGroup>
+
+  <Import Project="..\IntBasis.DocumentOriented.SharedTests\IntBasis.DocumentOriented.SharedTests.projitems" Label="Shared" />
 
 </Project>
