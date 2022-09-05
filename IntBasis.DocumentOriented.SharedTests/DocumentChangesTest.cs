@@ -31,7 +31,7 @@ public class DocumentChangesTest
     [Theory(DisplayName = "Subscribe 1 Change"), Integration]
     public async Task OneChange(IDocumentChanges subject, IDocumentStorage documentStorage)
     {
-        var entity = new TestBook();
+        var entity = new TestBook { Title = "Original Title" };
         await documentStorage.Store(entity);
         var invoked = false;
         using var subscription = subject.Subscribe<TestBook>(() =>
@@ -41,6 +41,23 @@ public class DocumentChangesTest
         });
 
         entity.Title = "New title";
+        await documentStorage.Store(entity);
+
+        await Task.Delay(100);
+        invoked.Should().BeTrue();
+    }
+
+    [Theory(DisplayName = "Subscribe 1 New Entity"), Integration]
+    public async Task NewEntity(IDocumentChanges subject, IDocumentStorage documentStorage)
+    {
+        var invoked = false;
+        using var subscription = subject.Subscribe<TestBook>(() =>
+        {
+            invoked = true;
+            return Task.CompletedTask;
+        });
+        var entity = new TestBook { Title = "New Book" };
+
         await documentStorage.Store(entity);
 
         await Task.Delay(100);
