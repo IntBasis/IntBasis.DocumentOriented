@@ -18,7 +18,7 @@ public class DocumentChangesTest
     public async Task NoChanges(IDocumentChanges subject)
     {
         var invoked = false;
-        var subscription = subject.Subscribe<TestBook>(() =>
+        var subscription = subject.Subscribe<TestBook>(_ =>
         {
             invoked = true;
             return Task.CompletedTask;
@@ -33,10 +33,10 @@ public class DocumentChangesTest
     {
         var entity = new TestBook { Title = "Original Title" };
         await documentStorage.Store(entity);
-        var invoked = false;
-        using var subscription = subject.Subscribe<TestBook>(() =>
+        DocumentChangeInfo? documentChangeInfo = null;
+        using var subscription = subject.Subscribe<TestBook>(d =>
         {
-            invoked = true;
+            documentChangeInfo = d;
             return Task.CompletedTask;
         });
 
@@ -44,16 +44,16 @@ public class DocumentChangesTest
         await documentStorage.Store(entity);
 
         await Task.Delay(100);
-        invoked.Should().BeTrue();
+        documentChangeInfo?.DocumentId.Should().Be(entity.Id);
     }
 
     [Theory(DisplayName = "Subscribe 1 New Entity"), Integration]
     public async Task NewEntity(IDocumentChanges subject, IDocumentStorage documentStorage)
     {
-        var invoked = false;
-        using var subscription = subject.Subscribe<TestBook>(() =>
+        DocumentChangeInfo? documentChangeInfo = null;
+        using var subscription = subject.Subscribe<TestBook>(d =>
         {
-            invoked = true;
+            documentChangeInfo = d;
             return Task.CompletedTask;
         });
         var entity = new TestBook { Title = "New Book" };
@@ -61,7 +61,7 @@ public class DocumentChangesTest
         await documentStorage.Store(entity);
 
         await Task.Delay(100);
-        invoked.Should().BeTrue();
+        documentChangeInfo?.DocumentId.Should().Be(entity.Id);
     }
 
     [Theory(DisplayName = "Subscribe 5 Changes"), Integration]
@@ -70,7 +70,7 @@ public class DocumentChangesTest
         var entity = new TestBook();
         await documentStorage.Store(entity);
         var invoked = 0;
-        using var subscription = subject.Subscribe<TestBook>(() =>
+        using var subscription = subject.Subscribe<TestBook>(_ =>
         {
             invoked++;
             return Task.CompletedTask;
@@ -90,7 +90,7 @@ public class DocumentChangesTest
     public async Task Disposal(IDocumentChanges subject, IDocumentStorage documentStorage)
     {
         var invoked = false;
-        var subscription = subject.Subscribe<TestBook>(() =>
+        var subscription = subject.Subscribe<TestBook>(_ =>
         {
             invoked = true;
             return Task.CompletedTask;

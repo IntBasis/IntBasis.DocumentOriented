@@ -2,12 +2,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>10.0</LangVersion>
-    <PackageId>IntBasis.DocumentOriented</PackageId>
-    <Version>1.5.0</Version>
-    <Authors>Jacob Foshee</Authors>
-    <Company>intBASIS</Company>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+
+    <Version>1.6.0</Version>
+    <Authors>Jacob Foshee</Authors>
+    <Company>intBASIS</Company>
+	<PackageProjectUrl>https://github.com/IntBasis/IntBasis.DocumentOriented</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

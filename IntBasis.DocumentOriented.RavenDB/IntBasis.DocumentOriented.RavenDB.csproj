@@ -3,10 +3,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>10.0</LangVersion>
 	<ImplicitUsings>enable</ImplicitUsings>
-    <PackageId>IntBasis.DocumentOriented.RavenDB</PackageId>
-    <Version>1.5.0</Version>
+	<Nullable>enable</Nullable>
+
+	<Version>1.6.0</Version>
     <Authors>Jacob Foshee</Authors>
     <Company>intBASIS</Company>
+	<PackageProjectUrl>https://github.com/IntBasis/IntBasis.DocumentOriented</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
