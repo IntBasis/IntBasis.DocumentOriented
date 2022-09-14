@@ -30,7 +30,8 @@
             "command": "mongod",
             "args": [
                 "--config",
-                "./mongod.cfg"
+                "./mongod.cfg",
+                "--replSet replica-set"
             ],
             "type": "process",
             "isBackground": true,
