@@ -31,7 +31,8 @@
             "args": [
                 "--config",
                 "./mongod.cfg",
-                "--replSet replica-set"
+                "--replSet",
+                "replica-set"
             ],
             "type": "process",
             "isBackground": true,
