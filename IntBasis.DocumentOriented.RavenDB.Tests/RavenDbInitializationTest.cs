@@ -6,7 +6,7 @@ namespace IntBasis.DocumentOriented.RavenDB.Tests;
 public class RavenDbInitializationTest
 {
     [Theory(DisplayName = "RavenDB Store"), Integration]
-    public async Task CreatesDb(IDocumentStore store, IServiceProvider sp)
+    public async Task CreatesDb(IDocumentStore store)
     {
         // Setup: Delete DB if it already exists.
         // It is OK to Delete a DB that does not exist.

@@ -92,7 +92,8 @@ public class RavenDbDocumentStorageTest
         }
 
         // Act: Retrieve and change retrieved record, then store a different entity
-        var retrieved = await subject.Retrieve<Category>(entity.Id);
+        var retrieved = await subject.Retrieve<Category>(entity.Id)
+                        ?? throw new Exception("Failed to retrieve new entity");
         retrieved.Name = notExpected;
         await subject.Store(new Category("Another unrelated entity"));
 

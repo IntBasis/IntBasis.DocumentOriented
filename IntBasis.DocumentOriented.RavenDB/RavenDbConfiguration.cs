@@ -14,7 +14,7 @@ public class RavenDbConfiguration
 
     // Configuration Binder requires parameterless constructor
     public RavenDbConfiguration()
-    {        
+    {
     }
 
     public RavenDbConfiguration(string databaseName, params string[] serverUrls)

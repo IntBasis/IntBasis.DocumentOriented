@@ -13,7 +13,7 @@ public class RavenDbDocumentStorage : IDocumentStorage
     //       https://ravendb.net/docs/article-page/5.3/csharp/server/kb/document-identifier-generation#document-ids---limitations
 
     /// <inheritdoc/>
-    public async Task<T> Retrieve<T>(string id) where T : IDocumentEntity
+    public async Task<T?> Retrieve<T>(string id) where T : IDocumentEntity
     {
         var entity = await documentSession.LoadAsync<T>(id);
         DoNotTrackChanges(entity);
