@@ -29,7 +29,7 @@ public class RavenDbDocumentStorage : IDocumentStorage
     }
 
     /// <summary>
-    /// Prevent entity from being "tracked" and changes inadvertantly being saved 
+    /// Prevent entity from being "tracked" and changes inadvertently being saved 
     /// when a separate entity is stored.
     /// </summary>
     private void DoNotTrackChanges(IDocumentEntity entity)

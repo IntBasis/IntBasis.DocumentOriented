@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Raven.Client.ServerWide;
+using Raven.Client.ServerWide.Operations;
 
 namespace IntBasis.DocumentOriented.RavenDB;
 
@@ -17,8 +19,8 @@ internal static class RavenDbInitialization
         // This process establishes the connection with the Server
         // and downloads various configurations
         // e.g. cluster topology or client configuration
-        store.Initialize();                 
-        // TODO: Create Database if does not exist
+        store.Initialize();
+        CreateDatabaseIfDoesNotExist(configuration, store);
         return store;
     }
 
@@ -43,4 +45,21 @@ internal static class RavenDbInitialization
         var documentStore = sp.GetRequiredService<IDocumentStore>();
         return documentStore.OpenAsyncSession();
     }
+
+    private static void CreateDatabaseIfDoesNotExist(RavenDbConfiguration configuration, IDocumentStore store)
+    {
+        var exists = DatabaseExists(configuration, store);
+        if (!exists)
+        {
+            var createOperation = new CreateDatabaseOperation(new DatabaseRecord(configuration.DatabaseName));
+            store.Maintenance.Server.Send<DatabasePutResult>(createOperation);
+        }
+    }
+
+    private static bool DatabaseExists(RavenDbConfiguration configuration, IDocumentStore store)
+    {
+        var getDbOperation = new GetDatabaseRecordOperation(configuration.DatabaseName);
+        var databaseRecord = store.Maintenance.Server.Send<DatabaseRecordWithEtag>(getDbOperation);
+        return databaseRecord is not null;
+    }    
 }

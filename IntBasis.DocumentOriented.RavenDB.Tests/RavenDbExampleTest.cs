@@ -10,6 +10,7 @@ class Product : IDocumentEntity
     public string? Category { get; internal set; }
     public int UnitsInStock { get; internal set; }
 }
+
 public class RavenDbExampleTest
 {
     //public RavenDbExampleTest()
@@ -22,7 +23,7 @@ public class RavenDbExampleTest
     //    store.Maintenance.Server.Send<DatabasePutResult>(createOperation);
     //}
 
-    static RavenDbConfiguration TestConfig => new("Test", "http://127.0.0.1:8080");
+    static RavenDbConfiguration TestConfig => IntegrationAttribute.TestConfig;
     static IDocumentStore DocumentStore() => RavenDbInitialization.InitializeDocumentStore(TestConfig);
 
     [Theory(DisplayName = "RavenDB Store"), Integration]
