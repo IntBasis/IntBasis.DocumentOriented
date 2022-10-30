@@ -16,6 +16,11 @@ internal static class RavenDbInitialization
             Urls = configuration.ServerUrls,
             Database = configuration.DatabaseName
         };
+        if (configuration.MaxNumberOfRequestsPerSession.HasValue)
+        {
+            // Allow overriding max requests per session (primarily for testing)
+            documentStore.Conventions.MaxNumberOfRequestsPerSession = configuration.MaxNumberOfRequestsPerSession.Value;
+        }
         documentStore.Conventions.Serialization = new NewtonsoftJsonSerializationConventions
         {
             // HACK: Prevent serializing `$type` member e.g. on ExpandObjects
