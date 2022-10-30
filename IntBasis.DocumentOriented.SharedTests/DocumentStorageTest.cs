@@ -67,8 +67,8 @@ public class DocumentStorageTest
         public dynamic Metadata { get; set; } = new ExpandoObject();
     }
 
-    [Theory(DisplayName = "Store Dynamic"), Integration]
-    public async Task StoreDynamic(IDocumentStorage subject)
+    [Theory(DisplayName = "Store Dynamic Anonymous"), Integration]
+    public async Task StoreDynamicAnonymous(IDocumentStorage subject)
     {
         var entity = new HasDynamic
         {
@@ -95,5 +95,33 @@ public class DocumentStorageTest
         Assert.NotNull(retrieved2!.Metadata);
         Assert.Equal("Houston", retrieved2.Metadata.Location);
         Assert.Equal(42, retrieved2.Metadata.Value);
+        retrieved2.Should().BeEquivalentTo(retrieved);
+    }
+
+    [Theory(DisplayName = "Store Dynamic Expando"), Integration]
+    public async Task StoreDynamicExpando(IDocumentStorage subject)
+    {
+        var entity = new HasDynamic();
+        entity.Metadata.Location = "Houston";
+        Assert.Equal("Houston", entity.Metadata.Location);
+
+        await subject.Store(entity);
+        entity.Id.Should().NotBeNull();
+        var retrieved = await subject.Retrieve<HasDynamic>(entity.Id!);
+
+        retrieved!.Should().NotBeNull();
+        Assert.NotNull(retrieved!.Metadata);
+        Assert.Equal("Houston", retrieved.Metadata.Location);
+        retrieved.Should().BeEquivalentTo(entity);
+
+        retrieved.Metadata.Value = 42;
+        await subject.Store(retrieved);
+        var retrieved2 = await subject.Retrieve<HasDynamic>(entity.Id!);
+
+        retrieved2!.Should().NotBeNull();
+        Assert.NotNull(retrieved2!.Metadata);
+        Assert.Equal("Houston", retrieved2.Metadata.Location);
+        Assert.Equal(42, retrieved2.Metadata.Value);
+        retrieved2.Should().BeEquivalentTo(retrieved);
     }
 }

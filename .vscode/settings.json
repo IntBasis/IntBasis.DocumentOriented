@@ -7,6 +7,7 @@
         "Expando",
         "inheritdoc",
         "mongosh",
+        "Newtonsoft",
         "paramref",
         "ravendb",
         "typeparam",

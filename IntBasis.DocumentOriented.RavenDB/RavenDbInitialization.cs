@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Raven.Client.Json.Serialization.NewtonsoftJson;
 using Raven.Client.ServerWide;
 using Raven.Client.ServerWide.Operations;
 
@@ -10,18 +11,24 @@ internal static class RavenDbInitialization
     {
         // The DocumentStore is capable of working with multiple databases and for proper operation we recommend having only one instance of it per application.
         // https://ravendb.net/docs/article-page/5.3/csharp/start/getting-started#documentstore
-        IDocumentStore store = new DocumentStore
+        IDocumentStore documentStore = new DocumentStore
         {
             Urls = configuration.ServerUrls,
             Database = configuration.DatabaseName
+        };
+        documentStore.Conventions.Serialization = new NewtonsoftJsonSerializationConventions
+        {
+            // HACK: Prevent serializing `$type` member e.g. on ExpandObjects
+            //       so that stored entity and retrieved entity are equivalent
+            CustomizeJsonSerializer = serializer => serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.None
         };
         // Each DocumentStore needs to be initialized before use.
         // This process establishes the connection with the Server
         // and downloads various configurations
         // e.g. cluster topology or client configuration
-        store.Initialize();
-        CreateDatabaseIfDoesNotExist(configuration, store);
-        return store;
+        documentStore.Initialize();
+        CreateDatabaseIfDoesNotExist(configuration, documentStore);
+        return documentStore;
     }
 
     /// <summary>
@@ -61,5 +68,5 @@ internal static class RavenDbInitialization
         var getDbOperation = new GetDatabaseRecordOperation(configuration.DatabaseName);
         var databaseRecord = store.Maintenance.Server.Send<DatabaseRecordWithEtag>(getDbOperation);
         return databaseRecord is not null;
-    }    
+    }
 }
