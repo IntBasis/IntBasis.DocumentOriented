@@ -1,5 +1,30 @@
 # IntBasis.DocumentOriented
 
+Don't know which Document DB to use? 
+This project provides a simple abstraction for Document DB storage, retrieval and observation. 
+You can easily switch providers in service configuration.
+
+
+### **Packages**
+
+- [MongoDB](https://www.nuget.org/packages/IntBasis.DocumentOriented.MongoDB)  
+  `services.AddDocumentOrientedMongoDb(config)`
+- [RavenDB](https://www.nuget.org/packages/IntBasis.DocumentOriented.RavenDB)  
+  `services.AddDocumentOrientedRavenDb(config)`
+- LiteDB (coming soon)  
+  `services.AddDocumentOrientedLiteDb(config)`
+
+| Key Services     |                                                                                      |
+| :--------------- | :----------------------------------------------------------------------------------- |
+| IDocumentChanges | Provides a way to subscribe to notifications of changes to Document Entities         |
+| IDocumentQuery   | Responsible for encapsulating querying the Document Database                         |
+| IDocumentStorage | Encapsulates the simple storage and retrieval of individual document entities by Id. |
+
+
+# Building and Running
+
+Notes on working with this Repo and running the local Document DB servers required for tests.
+
 ## Dev Environment (Windows)
 
 Installation requires an elevated Administrator shell

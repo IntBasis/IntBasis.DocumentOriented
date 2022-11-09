@@ -6,7 +6,7 @@
 public class DocumentChangeInfo
 {
     /// <summary>
-    /// Correspondes to the <see cref="IDocumentEntity.Id"/> of the Document Entity that was inserted or changed.
+    /// Corresponds to the <see cref="IDocumentEntity.Id"/> of the Document Entity that was inserted or changed.
     /// </summary>
     public string DocumentId { get; }
 

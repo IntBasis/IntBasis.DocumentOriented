@@ -11,7 +11,7 @@ public interface ISchemaVersionedDocumentStorage
     /// <summary>
     /// Retrieve the document entity from storage by the given <paramref name="id"/>.
     /// If the stored item was stored with an old schema
-    /// (that is the <see cref="ISchemaVersionedDocumentEntity.SchemaVersion"/> is less than version returned from <see cref="ISchemaVersionService"/>)
+    /// (that is the <see cref="IHasSchemaVersion.SchemaVersion"/> is less than version returned from <see cref="ISchemaVersionService"/>)
     /// then <paramref name="refresh"/> is called to get the latest version of the entity.
     /// The latest version of entity will be stored.
     /// </summary>
