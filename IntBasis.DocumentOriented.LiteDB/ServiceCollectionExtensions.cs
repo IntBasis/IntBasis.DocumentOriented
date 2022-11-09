@@ -28,8 +28,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(configuration);
         services.AddScoped<ILiteDatabase>(sp => new LiteDatabase(configuration.FileName));
         services.AddTransient<IDocumentStorage, LiteDbDocumentStorage>();
+        services.AddTransient<IDocumentQuery, LiteDbDocumentQuery>();
         //services.AddTransient<IDocumentChanges, LiteDbDocumentChanges>();
-        //services.AddTransient<IDocumentQuery, LiteDbDocumentQuery>();
         return services;
     }
 }
