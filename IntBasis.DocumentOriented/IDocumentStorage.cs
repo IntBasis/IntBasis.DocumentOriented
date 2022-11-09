@@ -6,7 +6,7 @@
 public interface IDocumentStorage
 {
     /// <summary>
-    /// Store the given entity in configured Document storage.
+    /// Store (upsert) the given entity in configured Document storage.
     /// The <see cref="IDocumentEntity.Id"/> is set to a unique identifier (if it was not already set).
     /// <para/>
     /// If the provided <see cref="IDocumentEntity.Id"/> is already in storage
