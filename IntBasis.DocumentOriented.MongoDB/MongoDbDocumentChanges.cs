@@ -14,7 +14,7 @@ public class MongoDbDocumentChanges : IDocumentChanges
     }
 
     /// <inheritdoc/>
-    public IDisposable Subscribe<T>(Func<DocumentChangeInfo, Task> observer) where T : IDocumentEntity
+    public IDisposable Subscribe<T>(Func<DocumentChangeInfo, Task> observer) where T : class, IDocumentEntity
     {
         // https://mongodb.github.io/mongo-csharp-driver/2.9/reference/driver/change_streams/
         var collection = mongoCollectionService.GetCollection<T>();

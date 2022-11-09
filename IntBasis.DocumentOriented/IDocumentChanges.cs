@@ -14,5 +14,5 @@ public interface IDocumentChanges
     /// <typeparam name="T">The Document Entity type</typeparam>
     /// <param name="observer">The delegate that is called for each change</param>
     /// <returns>A subscription which can be closed by calling <see cref="IDisposable.Dispose"/></returns>
-    IDisposable Subscribe<T>(Func<DocumentChangeInfo, Task> observer) where T : IDocumentEntity;
+    IDisposable Subscribe<T>(Func<DocumentChangeInfo, Task> observer) where T : class, IDocumentEntity;
 }
