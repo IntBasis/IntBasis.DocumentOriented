@@ -54,5 +54,7 @@ quit()
 - [x] Verify `dynamic` member support
 - [x] Enable nullable.  Retrieve should return Task<T?>
 - [ ] Add dual license like <https://sixlabors.com/posts/license-changes/>
+- [ ] <http://litedb.org>
+- [ ] Cassandra / Scylla
 
   [Chocolatey]: https://chocolatey.org/install

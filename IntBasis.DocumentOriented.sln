@@ -25,6 +25,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "IntBasis.DocumentOriented.SharedTests", "IntBasis.DocumentOriented.SharedTests\IntBasis.DocumentOriented.SharedTests.shproj", "{35D8E8AB-07E0-430D-8A7A-54C2A93C2FD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.LiteDB", "IntBasis.DocumentOriented.LiteDB\IntBasis.DocumentOriented.LiteDB.csproj", "{F27D6AB8-61D9-49FB-A585-F64BE23EF294}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntBasis.DocumentOriented.LiteDB.Tests", "IntBasis.DocumentOriented.LiteDB.Tests\IntBasis.DocumentOriented.LiteDB.Tests.csproj", "{EB2A1C8C-4AD8-44C2-8350-EA5C2B69A9F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +63,14 @@ Global
 		{18336C34-5471-4B45-BC54-66157365EF6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18336C34-5471-4B45-BC54-66157365EF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18336C34-5471-4B45-BC54-66157365EF6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F27D6AB8-61D9-49FB-A585-F64BE23EF294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F27D6AB8-61D9-49FB-A585-F64BE23EF294}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F27D6AB8-61D9-49FB-A585-F64BE23EF294}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F27D6AB8-61D9-49FB-A585-F64BE23EF294}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB2A1C8C-4AD8-44C2-8350-EA5C2B69A9F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB2A1C8C-4AD8-44C2-8350-EA5C2B69A9F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB2A1C8C-4AD8-44C2-8350-EA5C2B69A9F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB2A1C8C-4AD8-44C2-8350-EA5C2B69A9F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
