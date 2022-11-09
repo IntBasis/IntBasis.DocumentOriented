@@ -1,5 +1,6 @@
 ﻿using IntBasis.DocumentOriented;
 using IntBasis.DocumentOriented.LiteDB;
+using LiteDB;
 
 // .NET Practice is to place ServiceCollectionExtensions in the following namespace
 // to improve discoverability of the extension method during service configuration
@@ -16,13 +17,18 @@ public static class ServiceCollectionExtensions
     /// <item> <see cref="IDocumentStorage"/> </item>
     /// <item> <see cref="IDocumentQuery"/> </item>
     /// </list>
+    /// Internal:
+    /// <list type="bullet">
+    /// <item> <see cref="ILiteDatabase"/> </item>
+    /// </list>
     /// </summary>
     public static IServiceCollection AddDocumentOrientedLiteDb(this IServiceCollection services,
                                                                LiteDbConfiguration configuration)
     {
         services.AddSingleton(configuration);
+        services.AddScoped<ILiteDatabase>(sp => new LiteDatabase(configuration.FileName));
+        services.AddTransient<IDocumentStorage, LiteDbDocumentStorage>();
         //services.AddTransient<IDocumentChanges, LiteDbDocumentChanges>();
-        //services.AddTransient<IDocumentStorage, LiteDbDocumentStorage>();
         //services.AddTransient<IDocumentQuery, LiteDbDocumentQuery>();
         return services;
     }
