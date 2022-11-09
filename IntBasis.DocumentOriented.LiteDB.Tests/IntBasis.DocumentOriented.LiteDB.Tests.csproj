@@ -1,10 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DefineConstants>LITE_DB</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +27,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IntBasis.DocumentOriented.LiteDB\IntBasis.DocumentOriented.LiteDB.csproj" />
+    <ProjectReference Include="..\IntBasis.DocumentOriented.Testing\IntBasis.DocumentOriented.Testing.csproj" />
   </ItemGroup>
+  <Import Project="..\IntBasis.DocumentOriented.SharedTests\IntBasis.DocumentOriented.SharedTests.projitems" Label="Shared" />
 
 </Project>

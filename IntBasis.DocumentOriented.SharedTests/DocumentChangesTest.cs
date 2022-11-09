@@ -1,7 +1,9 @@
 ﻿#if MONGO_DB
 namespace IntBasis.DocumentOriented.MongoDB.Tests;
-#else
+#elif RAVEN_DB
 namespace IntBasis.DocumentOriented.RavenDB.Tests;
+#elif LITE_DB
+namespace IntBasis.DocumentOriented.LiteDB.Tests;
 #endif
 
 public class DocumentChangesTest

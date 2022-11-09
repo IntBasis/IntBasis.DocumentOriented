@@ -82,5 +82,6 @@ Global
 		IntBasis.DocumentOriented.SharedTests\IntBasis.DocumentOriented.SharedTests.projitems*{18336c34-5471-4b45-bc54-66157365ef6c}*SharedItemsImports = 5
 		IntBasis.DocumentOriented.SharedTests\IntBasis.DocumentOriented.SharedTests.projitems*{23468ff7-afff-495f-8f82-49101e129b48}*SharedItemsImports = 5
 		IntBasis.DocumentOriented.SharedTests\IntBasis.DocumentOriented.SharedTests.projitems*{35d8e8ab-07e0-430d-8a7a-54c2a93c2fd7}*SharedItemsImports = 13
+		IntBasis.DocumentOriented.SharedTests\IntBasis.DocumentOriented.SharedTests.projitems*{eb2a1c8c-4ad8-44c2-8350-ea5c2b69a9f5}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
