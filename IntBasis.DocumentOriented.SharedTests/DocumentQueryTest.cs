@@ -22,7 +22,7 @@ public class DocumentQueryTest
         var entity = new Category(name);
         await documentStorage.Store(entity);
 
-        // HACK: In some cases the item is not available yet (read after write)
+        // HACK: Wait for index to be updated (query after write)
         await Task.Delay(100);
 
         var one = await subject.Where<Category>(c => c.Name == name);
@@ -40,6 +40,9 @@ public class DocumentQueryTest
         var prefix = Guid.NewGuid().ToString();
         await documentStorage.Store(new Category(prefix + "1"));
         await documentStorage.Store(new Category(prefix + "2"));
+
+        // HACK: Wait for index to be updated (query after write)
+        await Task.Delay(100);
 
         var result = await subject.Where<Category>(c => c.Name != null && c.Name.StartsWith(prefix));
         result.Should().HaveCount(2);
